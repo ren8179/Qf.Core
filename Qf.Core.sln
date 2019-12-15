@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "apis", "apis", "{C7ACD281-C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qf.SysTodoList.WebApi", "samples\Qf.SysTodoList.WebApi\Qf.SysTodoList.WebApi.csproj", "{343F7292-4407-4A90-BCF0-AC2BD47CD11D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qf.SysTodoList.Domain", "samples\Qf.SysTodoList.Domain\Qf.SysTodoList.Domain.csproj", "{481B1EB8-7A81-4115-80E1-EB2A163D5203}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{343F7292-4407-4A90-BCF0-AC2BD47CD11D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{343F7292-4407-4A90-BCF0-AC2BD47CD11D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{343F7292-4407-4A90-BCF0-AC2BD47CD11D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{481B1EB8-7A81-4115-80E1-EB2A163D5203}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{481B1EB8-7A81-4115-80E1-EB2A163D5203}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{481B1EB8-7A81-4115-80E1-EB2A163D5203}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{481B1EB8-7A81-4115-80E1-EB2A163D5203}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +52,7 @@ Global
 		{2FE96E30-A754-411D-BAAD-1208872B3EE6} = {F6EAEA5C-F2E0-47F0-9489-17FF92394993}
 		{DC20B874-C523-4087-BE18-CD77619FD09B} = {F6EAEA5C-F2E0-47F0-9489-17FF92394993}
 		{343F7292-4407-4A90-BCF0-AC2BD47CD11D} = {C7ACD281-C36E-4A57-A945-4083C3B15150}
+		{481B1EB8-7A81-4115-80E1-EB2A163D5203} = {C7ACD281-C36E-4A57-A945-4083C3B15150}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {24DF645B-E8E2-48C8-8527-8803CF7DB49F}

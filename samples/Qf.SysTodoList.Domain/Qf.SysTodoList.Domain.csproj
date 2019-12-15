@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Qf.Core.EFCore\Qf.Core.EFCore.csproj" />
+    <ProjectReference Include="..\..\src\Qf.Core\Qf.Core.csproj" />
+  </ItemGroup>
+
+</Project>

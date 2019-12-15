@@ -4,8 +4,20 @@ using System.Text;
 
 namespace Qf.Core.Infrastructure
 {
-    public abstract class Entity<T>
+    [Serializable]
+    public abstract class Entity
     {
-        public T Id { get; set; }
+    }
+    public abstract class Entity<TKey> : Entity
+    {
+        public virtual TKey Id { get; set; }
+        protected Entity()
+        {
+
+        }
+        protected Entity(TKey id)
+        {
+            Id = id;
+        }
     }
 }
