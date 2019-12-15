@@ -1,0 +1,108 @@
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Qf.Core.Helper;
+using Serilog;
+
+namespace Qf.SysTodoList.WebApi
+{
+    public static class Program
+    {
+        /// <summary>
+        /// Gets 服务名称
+        /// </summary>
+        public const string AppName = "systodolist";
+
+        /// <summary>
+        /// Gets or sets ip
+        /// </summary>
+        public static string IP { get; set; }
+
+        /// <summary>
+        /// Gets or sets 端口
+        /// </summary>
+        public static int Port { get; set; }
+
+        /// <summary>
+        /// Gets 命名空间
+        /// </summary>
+        public static string Namespace { get; } = typeof(Program).Namespace;
+
+        /// <summary>
+        /// Gets or sets 服务路径
+        /// </summary>
+        public static string BasePath { get; set; }
+        public static async Task<int> Main(string[] args)
+        {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            var isService = !(Debugger.IsAttached || args.Contains("--console"));
+            BasePath = AppContext.BaseDirectory;
+            if (isService)
+            {
+                var pathToExe = Process.GetCurrentProcess().MainModule.FileName;
+                BasePath = Path.GetDirectoryName(pathToExe);
+            }
+            var config = GetConfiguration(BasePath);
+            IP = config["IP"];
+            Port = Convert.ToInt32(config["Port"]);
+            Log.Logger = CreateSerilogLogger(config);
+            try
+            {
+                Log.Debug("Configuring host ({Application})...", AppName);
+                if (string.IsNullOrEmpty(IP)) IP = NetworkHelper.LocalIPAddress;
+                if (Port == 0) Port = NetworkHelper.GetRandomAvaliablePort();
+                var host = CreateHostBuilder(args).Build();
+                Log.Logger.Information("Starting {Application}({version}) {Service} {url} ", AppName, config["Version"], isService ? "win service" : " host", $"http://{IP}:{Port}/");
+                await host.RunAsync().ConfigureAwait(false);
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "Program terminated unexpectedly ({ApplicationContext})!", AppName);
+                return 1;
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
+        }
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                .UseWindowsService()
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder
+                    .UseContentRoot(BasePath)
+                    .UseSerilog()
+                    .UseStartup<Startup>()
+                    .UseUrls($"http://{IP}:{Port}");
+                });
+        private static Serilog.ILogger CreateSerilogLogger(IConfiguration configuration)
+        {
+            return new LoggerConfiguration()
+                .Enrich.WithProperty("Application", AppName)
+                .Enrich.FromLogContext()
+                .WriteTo.Console()
+                .ReadFrom.Configuration(configuration)
+                .CreateLogger();
+        }
+        private static IConfiguration GetConfiguration(string basepath)
+        {
+            var builder = new ConfigurationBuilder();
+            builder.SetBasePath(basepath);
+            builder.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+            return builder.Build();
+        }
+    }
+}

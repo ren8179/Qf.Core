@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
+using System.Linq;
 
 namespace Qf.Core.Web.Filters
 {
@@ -7,6 +9,8 @@ namespace Qf.Core.Web.Filters
     {
         public override void OnResultExecuting(ResultExecutingContext context)
         {
+            var attrib = (context.ActionDescriptor as ControllerActionDescriptor).MethodInfo.GetCustomAttributes(typeof(DontWrapResultAttribute), false);
+            if (attrib != null && attrib.Length > 0) return;
             if (context.Result == null)
                 context.Result = new ObjectResult(new ResultMsg { Code = 404, Msg = "未找到资源", Success = false });
             else
@@ -27,7 +31,7 @@ namespace Qf.Core.Web.Filters
                     {
                         context.Result = new ObjectResult(new ResultMsg { Code = 404, Msg = "未找到资源", Success = false });
                     }
-                    else if(objectResult.StatusCode >= 400)
+                    else if (objectResult.StatusCode >= 400)
                     {
                         context.Result = new ObjectResult(new ResultMsg { Code = 400, Msg = "请求失败", Result = objectResult.Value, Success = false });
                     }

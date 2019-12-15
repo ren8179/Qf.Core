@@ -11,6 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qf.Core.EFCore", "src\Qf.Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qf.Core.Web", "src\Qf.Core.Web\Qf.Core.Web.csproj", "{DC20B874-C523-4087-BE18-CD77619FD09B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "apis", "apis", "{C7ACD281-C36E-4A57-A945-4083C3B15150}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qf.SysTodoList.WebApi", "samples\Qf.SysTodoList.WebApi\Qf.SysTodoList.WebApi.csproj", "{343F7292-4407-4A90-BCF0-AC2BD47CD11D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +33,10 @@ Global
 		{DC20B874-C523-4087-BE18-CD77619FD09B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC20B874-C523-4087-BE18-CD77619FD09B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC20B874-C523-4087-BE18-CD77619FD09B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{343F7292-4407-4A90-BCF0-AC2BD47CD11D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{343F7292-4407-4A90-BCF0-AC2BD47CD11D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{343F7292-4407-4A90-BCF0-AC2BD47CD11D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{343F7292-4407-4A90-BCF0-AC2BD47CD11D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -37,6 +45,7 @@ Global
 		{CEE969DF-21B0-46A4-AA4B-8F8B9E9CF731} = {F6EAEA5C-F2E0-47F0-9489-17FF92394993}
 		{2FE96E30-A754-411D-BAAD-1208872B3EE6} = {F6EAEA5C-F2E0-47F0-9489-17FF92394993}
 		{DC20B874-C523-4087-BE18-CD77619FD09B} = {F6EAEA5C-F2E0-47F0-9489-17FF92394993}
+		{343F7292-4407-4A90-BCF0-AC2BD47CD11D} = {C7ACD281-C36E-4A57-A945-4083C3B15150}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {24DF645B-E8E2-48C8-8527-8803CF7DB49F}
