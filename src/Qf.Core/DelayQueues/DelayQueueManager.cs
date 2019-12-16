@@ -16,5 +16,9 @@ namespace Qf.Core.DelayQueues
         {
             _queue.Read();
         }
+        public static void Remove(T item)
+        {
+            _queue.Remove(item);
+        }
     }
 }

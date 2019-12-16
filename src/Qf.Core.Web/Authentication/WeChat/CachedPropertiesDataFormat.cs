@@ -68,7 +68,7 @@ namespace Qf.Core.Web.Authentication.WeChat
             var key = protectedText;
             var cacheKey = $"{CacheKeyPrefix}{key}";
             var serialized = _cache.Get(cacheKey);
-
+            if (serialized == null) return null;
             return _serializer.Deserialize(serialized);
         }
 
