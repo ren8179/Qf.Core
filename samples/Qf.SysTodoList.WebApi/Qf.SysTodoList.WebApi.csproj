@@ -34,7 +34,7 @@
   
   <ItemGroup>
     <ProjectReference Include="..\..\src\Qf.Core.Web\Qf.Core.Web.csproj" />
-    <ProjectReference Include="..\..\src\Qf.Core\Qf.Core.csproj" />
+    <ProjectReference Include="..\Qf.SysTodoList.Domain\Qf.SysTodoList.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

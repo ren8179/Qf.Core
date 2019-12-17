@@ -7,7 +7,7 @@ using System.Text;
 namespace Qf.Core.EFCore.Repositories
 {
     public interface IEfCoreRepository<TEntity, TKey> : IRepository<TEntity, TKey>
-        where TEntity : Entity<TKey>
+        where TEntity : class, IEntity<TKey>
     {
         DbContext DbContext { get; }
 

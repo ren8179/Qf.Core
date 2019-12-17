@@ -11,7 +11,7 @@ namespace Qf.Core.Infrastructure
     public interface IRepository
     {
     }
-    public interface IRepository<TEntity,TKey> : IRepository where TEntity :  Entity<TKey>
+    public interface IRepository<TEntity, TKey> : IRepository where TEntity : IEntity<TKey>
     {
         TEntity Add([NotNull]TEntity model, bool autoSave = false);
         Task<TEntity> AddAsync([NotNull] TEntity entity, bool autoSave = false, CancellationToken cancellationToken = default);

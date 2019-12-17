@@ -5,10 +5,10 @@ using System.Text;
 namespace Qf.Core.Infrastructure
 {
     [Serializable]
-    public abstract class Entity
+    public abstract class Entity : IEntity
     {
     }
-    public abstract class Entity<TKey> : Entity
+    public abstract class Entity<TKey> : Entity, IEntity<TKey>
     {
         public virtual TKey Id { get; set; }
         protected Entity()

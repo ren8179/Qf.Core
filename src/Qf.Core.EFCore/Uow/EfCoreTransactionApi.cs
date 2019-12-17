@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Qf.Core.EFCore
+namespace Qf.Core.EFCore.Uow
 {
     public class EfCoreTransactionApi : ITransactionApi, ISupportsRollback
     {

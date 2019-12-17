@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.30" />
+    <PackageReference Include="MediatR" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\src\Qf.Core.EFCore\Qf.Core.EFCore.csproj" />
     <ProjectReference Include="..\..\src\Qf.Core\Qf.Core.csproj" />
   </ItemGroup>

@@ -7,25 +7,36 @@ using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Autofac;
 using CSRedis;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Qf.Core;
+using Qf.Core.EFCore;
+using Qf.Core.EFCore.DependencyInjection;
+using Qf.Core.EFCore.Uow;
 using Qf.Core.Tasks;
+using Qf.Core.Uow;
 using Qf.Core.Web.Authentication.WeChat;
 using Qf.Core.Web.Authorization;
 using Qf.Core.Web.Extension;
 using Qf.Core.Web.Filters;
+using Qf.SysTodoList.Domain;
+using Qf.SysTodoList.Domain.Commands;
+using Qf.SysTodoList.Domain.Queries;
 
 namespace Qf.SysTodoList.WebApi
 {
@@ -66,8 +77,8 @@ namespace Qf.SysTodoList.WebApi
                 {
                     wechatOptions.CallbackPath = new PathString($"/{Program.AppName}/signin-wechat");
                     wechatOptions.CallbackUrl = $"{Configuration["WeChat:CallbackPath"]}/{Program.AppName}/signin-wechat";
-                    wechatOptions.AppId = Configuration["WeChat:AppId"];
-                    wechatOptions.AppSecret = Configuration["WeChat:AppSecret"];
+                    wechatOptions.AppId = Configuration["WeChat:AppId"] ?? "wechat";
+                    wechatOptions.AppSecret = Configuration["WeChat:AppSecret"] ?? "wechat";
                     wechatOptions.UseCachedStateDataFormat = true;
                 });
         }
@@ -81,6 +92,21 @@ namespace Qf.SysTodoList.WebApi
         /// </summary>
         public void ConfigureContainer(ContainerBuilder builder)
         {
+            builder.RegisterAssemblyTypes(typeof(ITodoTaskQueries).GetTypeInfo().Assembly)
+                .Where(t => t.Name.EndsWith("Queries") && !t.IsInterface).WithParameter("constr", Configuration["ConnectionStrings:ReadOnlyConnStr"])
+                .AsImplementedInterfaces();
+            builder.RegisterAssemblyTypes(typeof(IMediator).GetTypeInfo().Assembly)
+                .AsImplementedInterfaces();
+            // Register all the Command classes (they implement IRequestHandler) in assembly holding the Commands
+            builder.RegisterAssemblyTypes(typeof(CreateTodoTaskCommand).GetTypeInfo().Assembly)
+                .AsClosedTypesOf(typeof(IRequestHandler<,>));
+            builder.RegisterType<UnitOfWorkManager>().AsImplementedInterfaces();
+            builder.Register<ServiceFactory>(context =>
+            {
+                var componentContext = context.Resolve<IComponentContext>();
+                return t => { object o; return componentContext.TryResolve(t, out o) ? o : null; };
+            });
+
         }
 
         /// <summary>
@@ -187,7 +213,26 @@ namespace Qf.SysTodoList.WebApi
         }
         public static IServiceCollection AddCustomDbContext(this IServiceCollection services, IConfiguration configuration)
         {
-
+            services.Configure<QfDbContextOptions>(options =>
+            {
+                options.PreConfigure(abpDbContextConfigurationContext =>
+                {
+                    abpDbContextConfigurationContext.DbContextOptions
+                        .ConfigureWarnings(warnings =>
+                        {
+                            warnings.Ignore(CoreEventId.LazyLoadOnDisposedContextWarning);
+                        });
+                });
+                options.Configure(context =>
+                {
+                    context.DbContextOptions.UseSqlServer(context.ConnectionString);
+                });
+            });
+            services.TryAddTransient(typeof(IDbContextProvider<>), typeof(UnitOfWorkDbContextProvider<>));
+            services.AddQfDbContext<TodoDbContext>(options =>
+            {
+                options.AddDefaultRepositories(includeAllEntities: true);
+            });
             return services;
         }
         public static IServiceCollection AddCustomSwagger(this IServiceCollection services, IConfiguration configuration)

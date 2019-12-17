@@ -13,7 +13,7 @@ namespace Qf.Core.Infrastructure
         IServiceProviderAccessor,
         IUnitOfWorkEnabled,
         ITransientDependency
-        where TEntity : Entity<TKey>
+        where TEntity : IEntity<TKey>
     {
         public IServiceProvider ServiceProvider { get; set; }
 

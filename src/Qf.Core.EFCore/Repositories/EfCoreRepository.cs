@@ -13,7 +13,7 @@ namespace Qf.Core.EFCore.Repositories
 {
     public class EfCoreRepository<TDbContext, TEntity, TKey> : RepositoryBase<TEntity, TKey>, IEfCoreRepository<TEntity, TKey>
         where TDbContext : IEfCoreDbContext
-        where TEntity : Entity<TKey>
+        where TEntity : class, IEntity<TKey>
     {
         public virtual DbSet<TEntity> DbSet => DbContext.Set<TEntity>();
 
