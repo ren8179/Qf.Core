@@ -7,7 +7,7 @@ namespace Qf.Core.DependencyInjection
 {
     public interface IOnServiceRegistredContext
     {
-        ITypeList<IInterceptor> Interceptors { get; }
+        ITypeList<IQfInterceptor> Interceptors { get; }
 
         Type ImplementationType { get; }
     }

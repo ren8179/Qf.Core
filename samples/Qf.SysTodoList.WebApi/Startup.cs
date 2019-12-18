@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Autofac;
+using Autofac.Extras.DynamicProxy;
 using CSRedis;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -25,6 +26,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Qf.Core;
+using Qf.Core.DynamicProxy.Castle;
 using Qf.Core.EFCore;
 using Qf.Core.EFCore.DependencyInjection;
 using Qf.Core.EFCore.Uow;
@@ -101,6 +103,9 @@ namespace Qf.SysTodoList.WebApi
             builder.RegisterAssemblyTypes(typeof(CreateTodoTaskCommand).GetTypeInfo().Assembly)
                 .AsClosedTypesOf(typeof(IRequestHandler<,>));
             builder.RegisterType<UnitOfWorkManager>().AsImplementedInterfaces();
+            builder.RegisterGeneric(typeof(IRequestHandler<,>)).InterceptedBy(
+                    typeof(CastleInterceptorAdapter<>).MakeGenericType(typeof(UnitOfWorkInterceptor))
+                );
             builder.Register<ServiceFactory>(context =>
             {
                 var componentContext = context.Resolve<IComponentContext>();
@@ -213,6 +218,7 @@ namespace Qf.SysTodoList.WebApi
         }
         public static IServiceCollection AddCustomDbContext(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddTransient(typeof(CastleInterceptorAdapter<>));
             services.Configure<QfDbContextOptions>(options =>
             {
                 options.PreConfigure(abpDbContextConfigurationContext =>

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Qf.Core.Uow
 {
-    public class UnitOfWorkInterceptor : Interceptor, ITransientDependency
+    public class UnitOfWorkInterceptor : QfInterceptor, ITransientDependency
     {
         private readonly IUnitOfWorkManager _unitOfWorkManager;
         private readonly UnitOfWorkDefaultOptions _defaultOptions;
@@ -20,7 +20,7 @@ namespace Qf.Core.Uow
             _defaultOptions = options.Value;
         }
 
-        public override void Intercept(IMethodInvocation invocation)
+        public override void Intercept(IQfMethodInvocation invocation)
         {
             if (!UnitOfWorkHelper.IsUnitOfWorkMethod(invocation.Method, out var unitOfWorkAttribute))
             {
@@ -35,7 +35,7 @@ namespace Qf.Core.Uow
             }
         }
 
-        public override async Task InterceptAsync(IMethodInvocation invocation)
+        public override async Task InterceptAsync(IQfMethodInvocation invocation)
         {
             if (!UnitOfWorkHelper.IsUnitOfWorkMethod(invocation.Method, out var unitOfWorkAttribute))
             {
@@ -50,7 +50,7 @@ namespace Qf.Core.Uow
             }
         }
 
-        private UnitOfWorkOptions CreateOptions(IMethodInvocation invocation, [CanBeNull] UnitOfWorkAttribute unitOfWorkAttribute)
+        private UnitOfWorkOptions CreateOptions(IQfMethodInvocation invocation, [CanBeNull] UnitOfWorkAttribute unitOfWorkAttribute)
         {
             var options = new UnitOfWorkOptions();
 

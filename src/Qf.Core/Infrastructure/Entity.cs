@@ -4,7 +4,6 @@ using System.Text;
 
 namespace Qf.Core.Infrastructure
 {
-    [Serializable]
     public abstract class Entity : IEntity
     {
     }

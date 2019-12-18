@@ -7,7 +7,6 @@ namespace Qf.Core.Infrastructure
     /// <summary>
     /// This class can be used to simplify implementing <see cref="T:Volo.Abp.Auditing.ICreationAuditedObject" /> for an entity.
     /// </summary>
-    [Serializable]
     public abstract class CreationAuditedEntity : Entity
     {
         /// <inheritdoc />
@@ -21,7 +20,6 @@ namespace Qf.Core.Infrastructure
     /// This class can be used to simplify implementing <see cref="ICreationAuditedObject"/> for an entity.
     /// </summary>
     /// <typeparam name="TKey">Type of the primary key of the entity</typeparam>
-    [Serializable]
     public abstract class CreationAuditedEntity<TKey> : Entity<TKey>
     {
         /// <inheritdoc />

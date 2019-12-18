@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Qf.Core.DynamicProxy
 {
-    public interface IMethodInvocation
+    public interface IQfMethodInvocation
     {
         object[] Arguments { get; }
 

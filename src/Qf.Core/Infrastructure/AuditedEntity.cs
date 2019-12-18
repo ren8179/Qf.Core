@@ -4,7 +4,6 @@ using System.Text;
 
 namespace Qf.Core.Infrastructure
 {
-    [Serializable]
     public abstract class AuditedEntity : CreationAuditedEntity
     {
         public virtual DateTime? LastModificationTime { get; set; }
@@ -12,7 +11,6 @@ namespace Qf.Core.Infrastructure
         public virtual Guid? LastModifierId { get; set; }
     }
 
-    [Serializable]
     public abstract class AuditedEntity<TKey> : CreationAuditedEntity<TKey>
     {
         public virtual DateTime? LastModificationTime { get; set; }

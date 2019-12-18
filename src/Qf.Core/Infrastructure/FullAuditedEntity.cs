@@ -4,7 +4,6 @@ using System.Text;
 
 namespace Qf.Core.Infrastructure
 {
-    [Serializable]
     public abstract class FullAuditedEntity : AuditedEntity
     {
         public virtual bool IsDeleted { get; set; }
@@ -13,7 +12,6 @@ namespace Qf.Core.Infrastructure
 
         public virtual DateTime? DeletionTime { get; set; }
     }
-    [Serializable]
     public abstract class FullAuditedEntity<TKey> : AuditedEntity<TKey>
     {
         public virtual bool IsDeleted { get; set; }

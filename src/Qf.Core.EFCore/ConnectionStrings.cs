@@ -5,7 +5,6 @@ using System.Text;
 
 namespace Qf.Core.EFCore
 {
-    [Serializable]
     public class ConnectionStrings : Dictionary<string, string>
     {
         public const string DefaultConnectionStringName = "Default";

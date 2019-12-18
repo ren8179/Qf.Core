@@ -9,7 +9,7 @@ namespace Qf.Core.DependencyInjection
 {
     public class OnServiceRegistredContext : IOnServiceRegistredContext
     {
-        public virtual ITypeList<IInterceptor> Interceptors { get; }
+        public virtual ITypeList<IQfInterceptor> Interceptors { get; }
 
         public virtual Type ServiceType { get; }
 
@@ -20,7 +20,7 @@ namespace Qf.Core.DependencyInjection
             ServiceType = Check.NotNull(serviceType, nameof(serviceType));
             ImplementationType = Check.NotNull(implementationType, nameof(implementationType));
 
-            Interceptors = new TypeList<IInterceptor>();
+            Interceptors = new TypeList<IQfInterceptor>();
         }
     }
 }

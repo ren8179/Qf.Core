@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace Qf.Core.DynamicProxy
 {
-    public abstract class Interceptor : IInterceptor
+    public abstract class QfInterceptor : IQfInterceptor
     {
-        public abstract void Intercept(IMethodInvocation invocation);
+        public abstract void Intercept(IQfMethodInvocation invocation);
 
-        public virtual Task InterceptAsync(IMethodInvocation invocation)
+        public virtual Task InterceptAsync(IQfMethodInvocation invocation)
         {
             Intercept(invocation);
             return Task.CompletedTask;
