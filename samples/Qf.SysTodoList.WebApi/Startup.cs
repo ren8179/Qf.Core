@@ -1,20 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
 using Autofac;
-using Autofac.Extras.DynamicProxy;
 using CSRedis;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Caching.Distributed;
@@ -23,9 +13,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Qf.Core;
+using Qf.Core.DependencyInjection;
 using Qf.Core.DynamicProxy.Castle;
 using Qf.Core.EFCore;
 using Qf.Core.EFCore.DependencyInjection;
@@ -39,6 +29,11 @@ using Qf.Core.Web.Filters;
 using Qf.SysTodoList.Domain;
 using Qf.SysTodoList.Domain.Commands;
 using Qf.SysTodoList.Domain.Queries;
+using System;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text.Encodings.Web;
 
 namespace Qf.SysTodoList.WebApi
 {
@@ -103,9 +98,6 @@ namespace Qf.SysTodoList.WebApi
             builder.RegisterAssemblyTypes(typeof(CreateTodoTaskCommand).GetTypeInfo().Assembly)
                 .AsClosedTypesOf(typeof(IRequestHandler<,>));
             builder.RegisterType<UnitOfWorkManager>().AsImplementedInterfaces();
-            builder.RegisterGeneric(typeof(IRequestHandler<,>)).InterceptedBy(
-                    typeof(CastleInterceptorAdapter<>).MakeGenericType(typeof(UnitOfWorkInterceptor))
-                );
             builder.Register<ServiceFactory>(context =>
             {
                 var componentContext = context.Resolve<IComponentContext>();
@@ -157,11 +149,11 @@ namespace Qf.SysTodoList.WebApi
             {
                 options.Filters.Add(typeof(WebApiResultMiddleware));
             })
-            //.AddNewtonsoftJson();//添加基于 Newtonsoft.Json 的 JSON 格式支持
-            .AddJsonOptions(options =>
-            {
-                options.JsonSerializerOptions.Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
-            });
+            .AddNewtonsoftJson();//添加基于 Newtonsoft.Json 的 JSON 格式支持
+            //.AddJsonOptions(options =>
+            //{
+            //    options.JsonSerializerOptions.Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
+            //});
             services.AddCors(options =>
             {
                 var origs = configuration.GetSection("AllowOrigins").Get<string[]>();
@@ -214,11 +206,16 @@ namespace Qf.SysTodoList.WebApi
 
             services.AddOptions();
             services.Configure<AppSettings>(configuration);
+            services.Configure<DbConnectionOptions>(configuration);
             return services;
         }
         public static IServiceCollection AddCustomDbContext(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddAssembly(typeof(ITransientDependency).Assembly);
+            services.AddAssembly(typeof(QfDbContext<>).Assembly);
+            services.AddAssembly(typeof(TodoTask).Assembly);
             services.AddTransient(typeof(CastleInterceptorAdapter<>));
+            services.OnRegistred(UnitOfWorkInterceptorRegistrar.RegisterIfNeeded);
             services.Configure<QfDbContextOptions>(options =>
             {
                 options.PreConfigure(abpDbContextConfigurationContext =>

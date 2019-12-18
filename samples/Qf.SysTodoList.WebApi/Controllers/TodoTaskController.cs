@@ -48,8 +48,9 @@ namespace Qf.SysTodoList.WebApi.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> CreateAsync([FromBody] CreateTodoTaskCommand input)
         {
-            await _mediator.Send(input);
-            return Ok();
+            var commandResult = await _mediator.Send(input);
+            if (!commandResult) return BadRequest();
+            return Ok(commandResult);
         }
     }
 }

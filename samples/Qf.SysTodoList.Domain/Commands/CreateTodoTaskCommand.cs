@@ -10,11 +10,11 @@ namespace Qf.SysTodoList.Domain.Commands
     public class CreateTodoTaskCommand : IRequest<bool>
     {
         [DataMember]
-        public string Title { get; private set; }
+        public string Title { get; set; }
         [DataMember]
-        public TodoType Type { get; private set; }
+        public TodoType Type { get; set; }
         [DataMember]
-        public TodoStatus Status { get; private set; }
+        public TodoStatus Status { get; set; }
         public CreateTodoTaskCommand()
         {
         }
