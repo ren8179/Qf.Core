@@ -4,46 +4,33 @@
       <a-form layout="inline">
         <a-row :gutter="48">
           <a-col :md="8" :sm="24">
-            <a-form-item label="规则编号">
+            <a-form-item label="物品编号">
               <a-input v-model="queryParam.id" placeholder=""/>
             </a-form-item>
           </a-col>
           <a-col :md="8" :sm="24">
-            <a-form-item label="使用状态">
+            <a-form-item label="状态">
               <a-select v-model="queryParam.status" placeholder="请选择" default-value="0">
                 <a-select-option value="0">全部</a-select-option>
-                <a-select-option value="1">关闭</a-select-option>
-                <a-select-option value="2">运行中</a-select-option>
+                <a-select-option value="1">在售</a-select-option>
+                <a-select-option value="2">缺货</a-select-option>
               </a-select>
             </a-form-item>
           </a-col>
           <template v-if="advanced">
             <a-col :md="8" :sm="24">
-              <a-form-item label="调用次数">
-                <a-input-number v-model="queryParam.callNo" style="width: 100%"/>
+              <a-form-item label="物品名称">
+                <a-input v-model="queryParam.name" style="width: 100%"/>
               </a-form-item>
             </a-col>
             <a-col :md="8" :sm="24">
-              <a-form-item label="更新日期">
-                <a-date-picker v-model="queryParam.date" style="width: 100%" placeholder="请输入更新日期"/>
+              <a-form-item label="上架日期">
+                <a-date-picker v-model="queryParam.date" style="width: 100%" placeholder="请输入上架日期"/>
               </a-form-item>
             </a-col>
             <a-col :md="8" :sm="24">
-              <a-form-item label="使用状态">
-                <a-select v-model="queryParam.useStatus" placeholder="请选择" default-value="0">
-                  <a-select-option value="0">全部</a-select-option>
-                  <a-select-option value="1">关闭</a-select-option>
-                  <a-select-option value="2">运行中</a-select-option>
-                </a-select>
-              </a-form-item>
-            </a-col>
-            <a-col :md="8" :sm="24">
-              <a-form-item label="使用状态">
-                <a-select placeholder="请选择" default-value="0">
-                  <a-select-option value="0">全部</a-select-option>
-                  <a-select-option value="1">关闭</a-select-option>
-                  <a-select-option value="2">运行中</a-select-option>
-                </a-select>
+              <a-form-item label="物品型号">
+                <a-input v-model="queryParam.type" style="width: 100%"/>
               </a-form-item>
             </a-col>
           </template>
@@ -62,18 +49,7 @@
     </div>
 
     <div class="table-operator">
-      <a-button type="primary" icon="plus" @click="handleEdit()">新建</a-button>
-      <a-button type="dashed" @click="tableOption">{{ optionAlertShow && '关闭' || '开启' }} alert</a-button>
-      <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
-        <a-menu slot="overlay">
-          <a-menu-item key="1"><a-icon type="delete" />删除</a-menu-item>
-          <!-- lock | unlock -->
-          <a-menu-item key="2"><a-icon type="lock" />锁定</a-menu-item>
-        </a-menu>
-        <a-button style="margin-left: 8px">
-          批量操作 <a-icon type="down" />
-        </a-button>
-      </a-dropdown>
+      <a-button type="primary" icon="plus" @click="handleEdit()">上架</a-button>
     </div>
 
     <s-table
@@ -82,33 +58,11 @@
       rowKey="key"
       :columns="columns"
       :data="loadData"
-      :alert="options.alert"
-      :rowSelection="options.rowSelection"
     >
-      <span slot="serial" slot-scope="text, record, index">
-        {{ index + 1 }}
-      </span>
       <span slot="action" slot-scope="text, record">
         <template>
-          <a @click="handleEdit(record)">编辑</a>
-          <a-divider type="vertical" />
+          <a @click="handleEdit(record)">下架</a>
         </template>
-        <a-dropdown>
-          <a class="ant-dropdown-link">
-            更多 <a-icon type="down" />
-          </a>
-          <a-menu slot="overlay">
-            <a-menu-item>
-              <a href="javascript:;">详情</a>
-            </a-menu-item>
-            <a-menu-item v-if="$auth('table.disable')">
-              <a href="javascript:;">禁用</a>
-            </a-menu-item>
-            <a-menu-item v-if="$auth('table.delete')">
-              <a href="javascript:;">删除</a>
-            </a-menu-item>
-          </a-menu>
-        </a-dropdown>
       </span>
     </s-table>
   </div>
@@ -134,23 +88,20 @@ export default {
       // 表头
       columns: [
         {
-          title: '#',
-          scopedSlots: { customRender: 'serial' }
+          title: '物品编号',
+          dataIndex: 'id'
         },
         {
-          title: '规则编号',
-          dataIndex: 'no'
+          title: '物品名称',
+          dataIndex: 'name'
         },
         {
-          title: '描述',
-          dataIndex: 'description'
+          title: '物品型号',
+          dataIndex: 'type'
         },
         {
-          title: '服务调用次数',
-          dataIndex: 'callNo',
-          sorter: true,
-          needTotal: true,
-          customRender: (text) => text + ' 次'
+          title: '物品价格',
+          dataIndex: 'price'
         },
         {
           title: '状态',
@@ -158,8 +109,8 @@ export default {
           needTotal: true
         },
         {
-          title: '更新时间',
-          dataIndex: 'updatedAt',
+          title: '上架时间',
+          dataIndex: 'date',
           sorter: true
         },
         {
@@ -182,7 +133,6 @@ export default {
 
       // custom table alert & rowSelection
       options: {
-        alert: { show: true, clear: () => { this.selectedRowKeys = [] } },
         rowSelection: {
           selectedRowKeys: this.selectedRowKeys,
           onChange: this.onSelectChange

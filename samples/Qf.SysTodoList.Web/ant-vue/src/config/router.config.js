@@ -51,31 +51,13 @@ export const asyncRouterMap = [
         path: '/produts',
         redirect: '/produts/list',
         component: PageView,
-        meta: { title: '物品管理', icon: 'profile', permission: [ 'produts' ] },
+        meta: { title: '物品管理', icon: 'profile', permission: [ 'dashboard' ] },
         children: [
           {
             path: '/produts/list',
             name: 'ProdutList',
             component: () => import('@/views/produts/list'),
-            meta: { title: '物品列表', keepAlive: false, permission: [ 'produts' ] }
-          },
-          {
-            path: '/form/base-form',
-            name: 'BaseForm',
-            component: () => import('@/views/form/BasicForm'),
-            meta: { title: '基础表单', keepAlive: true, permission: [ 'form' ] }
-          },
-          {
-            path: '/form/step-form',
-            name: 'StepForm',
-            component: () => import('@/views/form/stepForm/StepForm'),
-            meta: { title: '分步表单', keepAlive: true, permission: [ 'form' ] }
-          },
-          {
-            path: '/form/advanced-form',
-            name: 'AdvanceForm',
-            component: () => import('@/views/form/advancedForm/AdvancedForm'),
-            meta: { title: '高级表单', keepAlive: true, permission: [ 'form' ] }
+            meta: { title: '物品列表', keepAlive: false, permission: [ 'dashboard' ] }
           }
         ]
       },

@@ -18,11 +18,11 @@ const serverList = (options) => {
     result.push({
       key: tmpKey,
       id: tmpKey,
-      no: 'No ' + tmpKey,
-      description: '这是一段描述',
-      callNo: Mock.mock('@integer(1, 999)'),
+      name: '物品 ' + tmpKey,
+      type: '型号 ' + tmpKey,
+      price: Mock.mock('@integer(1, 999)'),
       status: Mock.mock('@integer(0, 3)'),
-      updatedAt: Mock.mock('@datetime'),
+      date: Mock.mock('@datetime'),
       editable: false
     })
   }
