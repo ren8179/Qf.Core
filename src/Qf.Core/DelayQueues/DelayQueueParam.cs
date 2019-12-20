@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Qf.Core.DelayQueues
 {
@@ -10,6 +11,6 @@ namespace Qf.Core.DelayQueues
 
         internal int CycleNum { get; set; }
 
-        public Action<object> Callback { get; set; }
+        public Func<object, Task> Callback { get; set; }
     }
 }

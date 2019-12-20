@@ -51,10 +51,10 @@ namespace Qf.Core.DelayQueues
                             Task.Run(() => {
                                 try
                                 {
-                                    item.Callback(item);
+                                    item.Callback(item).ConfigureAwait(false);
                                 }
                                 finally { }
-                            });
+                            }).ConfigureAwait(false);
                             target.Add(item);
                         }
                         else
@@ -63,6 +63,7 @@ namespace Qf.Core.DelayQueues
                             item.CycleNum--;
                             System.Diagnostics.Debug.WriteLine($"@@@@@索引：{item.Slot}，剩余：{item.CycleNum}");
                         }
+                        Task.Delay(5000).GetAwaiter().GetResult();
                     }
                     //把已过期的移除掉
                     foreach (var item in target)
