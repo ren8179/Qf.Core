@@ -3,6 +3,14 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <OutputType>Library</OutputType>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IsPackable>true</IsPackable>
+    <Authors>Ren Qi</Authors>
+    <Company>Ren Qi</Company>
+    <Product>Ren Qi</Product>
+    <PackageProjectUrl>https://github.com/ren8179/Qf.Core/tree/master/src/Qf.Core.Web</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ren8179/Qf.Core</RepositoryUrl>
+    <PackageLicenseFile>README.md</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,6 +21,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Qf.Core\Qf.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
