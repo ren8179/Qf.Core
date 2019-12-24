@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Qf.SysTodoList.Domain;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Qf.SysTodoList.Domain.Dto
+namespace Qf.SysTodoList.Application.Dto
 {
     public class TodoTaskDto
     {

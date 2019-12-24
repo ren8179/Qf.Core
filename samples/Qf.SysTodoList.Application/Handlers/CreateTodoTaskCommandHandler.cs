@@ -1,14 +1,15 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using Qf.Core.Infrastructure;
-using Qf.SysTodoList.Domain.Commands;
+using Qf.SysTodoList.Application.Commands;
+using Qf.SysTodoList.Domain;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Qf.SysTodoList.Domain.Handlers
+namespace Qf.SysTodoList.Application.Handlers
 {
     public class CreateTodoTaskCommandHandler : IRequestHandler<CreateTodoTaskCommand, bool>
     {

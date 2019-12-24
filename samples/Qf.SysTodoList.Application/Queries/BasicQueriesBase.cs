@@ -7,7 +7,7 @@ using System.Data;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Qf.SysTodoList.Domain.Queries
+namespace Qf.SysTodoList.Application.Queries
 {
     public abstract class BasicQueriesBase
     {
@@ -30,7 +30,7 @@ namespace Qf.SysTodoList.Domain.Queries
             p.Add("Condition", " 1=1 " + where);
             p.Add("CurrentPage", page);
             p.Add("PageSize", pageSize);
-            p.Add("Sort", "CreateDate DESC");
+            p.Add("Sort", "CreationTime DESC");
             p.Add("RecordCount", dbType: DbType.Int32, direction: ParameterDirection.Output);
             connection.Open();
             var result = new PageDto<T>

@@ -1,11 +1,10 @@
 ﻿using Qf.Core;
-using Qf.SysTodoList.Domain.Dto;
+using Qf.SysTodoList.Application.Dto;
+using Qf.SysTodoList.Domain;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Qf.SysTodoList.Domain.Queries
+namespace Qf.SysTodoList.Application.Queries
 {
     public interface ITodoTaskQueries
     {

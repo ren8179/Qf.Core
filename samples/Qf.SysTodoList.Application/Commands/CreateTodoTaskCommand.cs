@@ -1,10 +1,11 @@
 ﻿using MediatR;
+using Qf.SysTodoList.Domain;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace Qf.SysTodoList.Domain.Commands
+namespace Qf.SysTodoList.Application.Commands
 {
     [DataContract]
     public class CreateTodoTaskCommand : IRequest<bool>

@@ -10,6 +10,9 @@
     <PackageProjectUrl>https://github.com/ren8179/Qf.Core/tree/master/src/Qf.Core</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ren8179/Qf.Core</RepositoryUrl>
     <PackageLicenseFile>README.md</PackageLicenseFile>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
+    <Version>1.0.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\README.md">
+    <None Include="..\..\..\README.md">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>

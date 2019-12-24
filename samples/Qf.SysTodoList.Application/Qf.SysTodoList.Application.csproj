@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.30" />
+    <PackageReference Include="MediatR" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="1.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Qf.SysTodoList.Domain\Qf.SysTodoList.Domain.csproj" />
+    <ProjectReference Include="..\Qf.SysTodoList.Infrastructure\Qf.SysTodoList.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

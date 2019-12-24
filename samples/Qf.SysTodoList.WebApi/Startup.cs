@@ -27,13 +27,15 @@ using Qf.Core.Web.Authorization;
 using Qf.Core.Web.Extension;
 using Qf.Core.Web.Filters;
 using Qf.SysTodoList.Domain;
-using Qf.SysTodoList.Domain.Commands;
-using Qf.SysTodoList.Domain.Queries;
+using Qf.SysTodoList.Application.Commands;
+using Qf.SysTodoList.Application.Queries;
 using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.Encodings.Web;
+using Qf.SysTodoList.Application;
+using Qf.SysTodoList.Infrastructure;
 
 namespace Qf.SysTodoList.WebApi
 {
@@ -213,25 +215,22 @@ namespace Qf.SysTodoList.WebApi
         {
             services.AddAssembly(typeof(ITransientDependency).Assembly);
             services.AddAssembly(typeof(QfDbContext<>).Assembly);
+            services.AddAssembly(typeof(TodoDbContext).Assembly);
             services.AddAssembly(typeof(TodoTask).Assembly);
             services.AddTransient(typeof(CastleInterceptorAdapter<>));
+            services.TryAddTransient(typeof(IDbContextProvider<>), typeof(UnitOfWorkDbContextProvider<>));
             services.OnRegistred(UnitOfWorkInterceptorRegistrar.RegisterIfNeeded);
             services.Configure<QfDbContextOptions>(options =>
             {
-                options.PreConfigure(abpDbContextConfigurationContext =>
+                options.PreConfigure(context =>
                 {
-                    abpDbContextConfigurationContext.DbContextOptions
-                        .ConfigureWarnings(warnings =>
-                        {
-                            warnings.Ignore(CoreEventId.LazyLoadOnDisposedContextWarning);
-                        });
+                    context.DbContextOptions.ConfigureWarnings(warnings => warnings.Ignore(CoreEventId.LazyLoadOnDisposedContextWarning));
                 });
                 options.Configure(context =>
                 {
                     context.DbContextOptions.UseSqlServer(context.ConnectionString);
                 });
             });
-            services.TryAddTransient(typeof(IDbContextProvider<>), typeof(UnitOfWorkDbContextProvider<>));
             services.AddQfDbContext<TodoDbContext>(options =>
             {
                 options.AddDefaultRepositories(includeAllEntities: true);
