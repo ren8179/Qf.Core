@@ -43,6 +43,16 @@ namespace Qf.SysTodoList.WebApi.Controllers
             return Ok(list);
         }
         /// <summary>
+        /// 查询收货地址详细信息
+        /// </summary>
+        [HttpGet("getmodel")]
+        [ProducesResponseType(typeof(TodoTaskDto), (int)HttpStatusCode.OK)]
+        public async Task<TodoTaskDto> GetModelAsync(Guid id)
+        {
+            var model = await _queries.GetModelAsync(id);
+            return model;
+        }
+        /// <summary>
         /// 创建任务
         /// </summary>
         [HttpPost("create")]

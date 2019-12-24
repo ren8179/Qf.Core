@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,16 +24,14 @@ using Qf.Core.Web.Authentication.WeChat;
 using Qf.Core.Web.Authorization;
 using Qf.Core.Web.Extension;
 using Qf.Core.Web.Filters;
-using Qf.SysTodoList.Domain;
 using Qf.SysTodoList.Application.Commands;
 using Qf.SysTodoList.Application.Queries;
+using Qf.SysTodoList.Domain;
+using Qf.SysTodoList.Infrastructure;
 using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text.Encodings.Web;
-using Qf.SysTodoList.Application;
-using Qf.SysTodoList.Infrastructure;
 
 namespace Qf.SysTodoList.WebApi
 {
@@ -222,14 +218,7 @@ namespace Qf.SysTodoList.WebApi
             services.OnRegistred(UnitOfWorkInterceptorRegistrar.RegisterIfNeeded);
             services.Configure<QfDbContextOptions>(options =>
             {
-                options.PreConfigure(context =>
-                {
-                    context.DbContextOptions.ConfigureWarnings(warnings => warnings.Ignore(CoreEventId.LazyLoadOnDisposedContextWarning));
-                });
-                options.Configure(context =>
-                {
-                    context.DbContextOptions.UseSqlServer(context.ConnectionString);
-                });
+                options.UseSqlServer<TodoDbContext>();
             });
             services.AddQfDbContext<TodoDbContext>(options =>
             {
