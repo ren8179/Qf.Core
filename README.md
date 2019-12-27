@@ -9,11 +9,14 @@
 
 ### framework 微服务框架解决方案
 * **Qf.Core**
+
     核心类库,部分代码参考自[abp](https://github.com/abpframework/abp)项目,用来实现框架的基础功能
 * **Qf.Core.EFCore**
-    基于EntityFrameworkCore的仓储基类
+
+    基于EntityFrameworkCore的仓储基类,默认使用统一工作单元,自动注入默认仓储.
 * **Qf.Core.Web**
-    
+
+    asp.net core mvc 项目扩展,添加了微信登录([WeChat](https://github.com/ren8179/Qf.Core/tree/master/framework/src/Qf.Core.Web/Authentication/WeChat)),自定义授权认证([BearerAuthorize](https://github.com/ren8179/Qf.Core/tree/master/framework/src/Qf.Core.Web/Authorization)),全局异常处理([ErrorHandling](https://github.com/ren8179/Qf.Core/blob/master/framework/src/Qf.Core.Web/Extension/ErrorHandlingExtensions.cs)),返回值封装([WebApiResult](https://github.com/ren8179/Qf.Core/tree/master/framework/src/Qf.Core.Web/Filters)))
 
 ### samples 示例项目解决方案
 
