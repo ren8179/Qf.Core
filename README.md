@@ -18,7 +18,24 @@
 
     asp.net core mvc 项目扩展,添加了微信登录([WeChat](https://github.com/ren8179/Qf.Core/tree/master/framework/src/Qf.Core.Web/Authentication/WeChat)),自定义授权认证([BearerAuthorize](https://github.com/ren8179/Qf.Core/tree/master/framework/src/Qf.Core.Web/Authorization)),全局异常处理([ErrorHandling](https://github.com/ren8179/Qf.Core/blob/master/framework/src/Qf.Core.Web/Extension/ErrorHandlingExtensions.cs)),返回值封装([WebApiResult](https://github.com/ren8179/Qf.Core/tree/master/framework/src/Qf.Core.Web/Filters)))
 
-### samples 示例项目解决方案
+### samples 示例项目TodoList解决方案
+* **Qf.SysTodoList.Application** 应用层
+* **Qf.SysTodoList.Domain** 领域层
+* **Qf.SysTodoList.Infrastructure** 基础设施层(默认基于SqlServer实现)
+* **Qf.SysTodoList.Infrastructure.MySql** 基于MySql的基础设施层
+* **Qf.SysTodoList.Web** 用户前端
+* **Qf.SysTodoList.WebApi** 数据接口
+
+### 如何开始
+你可以参考示例项目TodoList解决方案的项目分层,新建你自己的解决方案,也可以直接复制samples文件夹下的所有内容,然后重命名,添加你自己的领域对象.
+
+- 在正式运行WebApi项目之前,请修改 `appsettings.json` 配置文件中的数据库连接字符串
+
+- WebApi项目启动后,访问 `/swagger/index.html` 路径来查看接口文档
+
+<p align="center">
+  <img  src="https://raw.githubusercontent.com/ren8179/Qf.Core/master/doc/todolist-swagger.png">
+</p>
 
 ### 参考项目
 * [abp](https://github.com/abpframework/abp)

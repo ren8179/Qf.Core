@@ -35,6 +35,9 @@ namespace Qf.SysTodoList.WebApi.Controllers
             _queries = queries ?? throw new ArgumentNullException(nameof(queries));
         }
 
+        /// <summary>
+        /// 获取分页列表
+        /// </summary>
         [HttpGet("getpagelist")]
         [ProducesResponseType(typeof(IEnumerable<TodoTaskDto>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<TodoTaskDto>>> GetPageListAsync(TodoType? type, int page = 1, int pageSize = 20)
@@ -43,7 +46,7 @@ namespace Qf.SysTodoList.WebApi.Controllers
             return Ok(list);
         }
         /// <summary>
-        /// 查询收货地址详细信息
+        /// 获取任务详情
         /// </summary>
         [HttpGet("getmodel")]
         [ProducesResponseType(typeof(TodoTaskDto), (int)HttpStatusCode.OK)]
