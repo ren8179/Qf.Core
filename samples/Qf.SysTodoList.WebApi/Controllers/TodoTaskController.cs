@@ -62,5 +62,32 @@ namespace Qf.SysTodoList.WebApi.Controllers
             if (!commandResult) return BadRequest();
             return Ok(commandResult);
         }
+
+        /// <summary>
+        /// 测试自动添加
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("TestAdd")]
+        public async Task<IActionResult> TestAdd()
+        {
+            try
+            {
+                var model = new TodoTask
+                {
+                    CreationTime = DateTime.Now,
+                    Id = Guid.NewGuid(),
+                    Status = TodoStatus.Default,
+                    Title = "测试AddCommand",
+                    Type = TodoType.NearTerm
+                };
+                var command = new AddCommand { Model = model };
+                await _mediator.Send(command);
+                return Ok("成功");
+            }
+            catch (Exception e)
+            {
+                return Ok("error");
+            }
+        }
     }
 }
