@@ -24,62 +24,24 @@ namespace Qf.SysTodoList.Infrastructure
         /// <summary>
         /// 分页查询列表
         /// </summary>
-        protected async Task<PageDto<T>> GetPageAsync<T>(string tableName, int page = 1, int pageSize = 10, string where = "", string fields = "*")
+        protected async Task<PageDto<T>> GetPageAsync<T>(string tableName, int page = 1, int pageSize = 10, string where = "", string fields = "*", string orderby = "CreationTime DESC")
         {
             using var connection = GetConnection();
-            var p = new DynamicParameters();
-            string proName = "ProcGetPageData";
-            p.Add("TableName", tableName);
-            p.Add("PrimaryKey", "Id");
-            p.Add("Fields", fields);
-            p.Add("Condition", " 1=1 " + where);
-            p.Add("CurrentPage", page);
-            p.Add("PageSize", pageSize);
-            p.Add("Sort", "CreationTime DESC");
-            p.Add("RecordCount", dbType: DbType.Int32, direction: ParameterDirection.Output);
-            connection.Open();
-            var result = new PageDto<T>
-            {
-                Rows = await connection.QueryAsync<T>(proName, p, commandType: CommandType.StoredProcedure),
-                Records = p.Get<int>("RecordCount"),
-            };
-            result.Total = (int)Math.Ceiling((double)result.Records / pageSize);
-            result.Page = page;
-            return result;
-        }
-        /// <summary>
-        /// 通用分页方法
-        /// </summary>
-        /// <param name="fields">列</param>
-        /// <param name="tableName">表</param>
-        /// <param name="where">条件</param>
-        /// <param name="orderby">排序</param>
-        /// <param name="page">当前页</param>
-        /// <param name="pageSize">当前页显示条数</param>
-        /// <returns></returns>
-        protected async Task<PageDto<T>> GetPageListAsync<T>(string tableName, int page = 1, int pageSize = 10, string where = "", string fields = "*", string orderby = "CreationTime DESC")
-        {
-            using var connection = GetConnection();
-            int skip = 1;
+            int skip = 0;
             if (page > 0)
             {
-                skip = (page - 1) * pageSize + 1;
+                skip = (page - 1) * pageSize;
             }
             StringBuilder sb = new StringBuilder();
             sb.AppendFormat("SELECT COUNT(1) FROM {0} where {1};", tableName, where);
-            sb.AppendFormat(@"SELECT  {0}
-                                FROM(SELECT ROW_NUMBER() OVER(ORDER BY {3}) AS RowNum,{0}
-                                          FROM  {1}
-                                          WHERE {2}
-                                        ) AS result
-                                WHERE  RowNum >= {4}   AND RowNum <= {5}
-                                ORDER BY {3}", fields, tableName, where, orderby, skip, page * pageSize);
+            sb.AppendFormat("SELECT {0} FROM {1} WHERE {2} ORDER BY {3} LIMIT {4}, {5} ; ", fields, tableName, where, orderby, skip, page * pageSize);
             connection.Open();
-            var reader = await connection.QueryMultipleAsync(sb.ToString());
+            var sql = sb.ToString();
+            var reader = await connection.QueryMultipleAsync(sql);
             var result = new PageDto<T>
             {
-                Rows = reader.Read<T>(),
                 Records = reader.ReadFirst<int>(),
+                Rows = reader.Read<T>()
             };
             result.Total = (int)Math.Ceiling((double)result.Records / pageSize);
             result.Page = page;
