@@ -59,9 +59,9 @@ namespace Qf.SysTodoList.WebApi.Controllers
         /// 创建任务
         /// </summary>
         [HttpPost("create")]
-        public async Task<IActionResult> CreateAsync([FromBody] CreateTodoTaskCommand input)
+        public async Task<IActionResult> CreateAsync([FromBody] CreateTodoTaskInput input)
         {
-            var commandResult = await _mediator.Send(input);
+            var commandResult = await _mediator.Send(new CreateTodoTaskCommand(input));
             if (!commandResult) return BadRequest();
             return Ok(commandResult);
         }
@@ -89,6 +89,7 @@ namespace Qf.SysTodoList.WebApi.Controllers
             }
             catch (Exception e)
             {
+                _logger.LogError(e, "TestAdd");
                 return Ok("error");
             }
         }

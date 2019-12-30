@@ -13,6 +13,7 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Qf.Core;
+using Qf.Core.AutoMapper;
 using Qf.Core.DependencyInjection;
 using Qf.Core.DynamicProxy.Castle;
 using Qf.Core.EFCore;
@@ -24,6 +25,7 @@ using Qf.Core.Web.Authentication.WeChat;
 using Qf.Core.Web.Authorization;
 using Qf.Core.Web.Extension;
 using Qf.Core.Web.Filters;
+using Qf.SysTodoList.Application;
 using Qf.SysTodoList.Application.Commands;
 using Qf.SysTodoList.Application.Queries;
 using Qf.SysTodoList.Domain;
@@ -55,7 +57,8 @@ namespace Qf.SysTodoList.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCustomMvc(Configuration)
+            services.AddAutoMapper(Configuration)
+                .AddCustomMvc(Configuration)
                 .AddHealthChecks(Configuration)
                 .AddCustomDbContext(Configuration)
                 .AddHttpClient()
@@ -116,6 +119,8 @@ namespace Qf.SysTodoList.WebApi
             app.UseStaticFiles();
             app.UseHttpsRedirection();
 
+            app.UseQfAutoMapper();
+
             app.UseRouting();
             app.UseCors(Startup.PolicyName);
             app.UseAuthentication();
@@ -141,6 +146,15 @@ namespace Qf.SysTodoList.WebApi
     /// </summary>
     public static class CustomExtensionsMethods
     {
+        public static IServiceCollection AddAutoMapper(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddAutoMapperObjectMapper();
+            services.Configure<AutoMapperOptions>(options =>
+            {
+                options.AddProfile<ApplicationAutoMapperProfile>();
+            });
+            return services;
+        }
         public static IServiceCollection AddCustomMvc(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddControllers(options =>
@@ -210,6 +224,7 @@ namespace Qf.SysTodoList.WebApi
         public static IServiceCollection AddCustomDbContext(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddAssembly(typeof(ITransientDependency).Assembly);
+            services.AddAssembly(typeof(IObjectMapper).Assembly);
             services.AddAssembly(typeof(QfDbContext<>).Assembly);
             services.AddAssembly(typeof(TodoDbContext).Assembly);
             services.AddAssembly(typeof(TodoTask).Assembly);

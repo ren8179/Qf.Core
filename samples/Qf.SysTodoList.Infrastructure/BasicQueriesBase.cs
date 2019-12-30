@@ -78,8 +78,8 @@ namespace Qf.SysTodoList.Infrastructure
             var reader = await connection.QueryMultipleAsync(sb.ToString());
             var result = new PageDto<T>
             {
-                Rows = reader.Read<T>(),
                 Records = reader.ReadFirst<int>(),
+                Rows = reader.Read<T>(),
             };
             result.Total = (int)Math.Ceiling((double)result.Records / pageSize);
             result.Page = page;
