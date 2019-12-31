@@ -11,6 +11,9 @@
 * **Qf.Core**
 
     核心类库,部分代码参考自[abp](https://github.com/abpframework/abp)项目,用来实现框架的基础功能
+* **Qf.Core.AutoMapper**
+
+    基于AutoMapper的对象映射,具体用法请查看 [Qf.Core.AutoMapper的用法](https://github.com/ren8179/Qf.Core/wiki/Qf.Core.AutoMapper%E7%9A%84%E7%94%A8%E6%B3%95)
 * **Qf.Core.EFCore**
 
     基于EntityFrameworkCore的仓储基类,默认使用统一工作单元,自动注入默认仓储.
