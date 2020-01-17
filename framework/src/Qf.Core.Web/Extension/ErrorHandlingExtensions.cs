@@ -29,6 +29,7 @@ namespace Qf.Core.Web.Extension
         {
             try
             {
+                context.Request.EnableBuffering();
                 await next(context);
             }
             catch (EPTException ex)
