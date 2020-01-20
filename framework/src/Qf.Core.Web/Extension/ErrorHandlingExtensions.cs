@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Logging;
+using Qf.Core.Extensions;
 using System;
 using System.Buffers;
-using System.Collections.Generic;
-using System.IO;
 using System.IO.Pipelines;
 using System.Linq;
 using System.Text;
@@ -27,22 +25,23 @@ namespace Qf.Core.Web.Extension
 
         public async Task Invoke(HttpContext context)
         {
+            Check.NotNull(context, nameof(context));
             try
             {
                 context.Request.EnableBuffering();
-                await next(context);
+                await next(context).ConfigureAwait(false);
             }
             catch (EPTException ex)
             {
-                _logger.LogWarning($"{await LogRequestInfo(context.Request)} \r\n {ex.Message}");
                 HandleException(context.Response, 200, ex.Message);
+                await LogRequestInfo(context.Request,ex.Message);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"{await LogRequestInfo(context.Request)} \r\n {ex.Message}");
                 var statusCode = context.Response.StatusCode;
                 if (ex is ArgumentException) statusCode = 200;
                 HandleException(context.Response, statusCode, ex.Message);
+                await LogRequestInfo(context.Request, ex.Message);
             }
             finally
             {
@@ -80,11 +79,18 @@ namespace Qf.Core.Web.Extension
                 default: return "未知错误";
             }
         }
-        private async Task<string> LogRequestInfo(HttpRequest request)
+        private async Task LogRequestInfo(HttpRequest request, string errMsg, Exception ex = null)
         {
-            if (request == null || request.Path == null || request.Path.Value.Contains("swagger"))
-                return "";
-            return $"[{request.Method}] {request.Path}{request.QueryString} {await ReadRequestBodyAsync(request.BodyReader).ConfigureAwait(true)}";
+            var msg = "";
+            if (request != null && request.Path != null && !request.Path.Value.Contains("swagger"))
+            {
+                var body = await ReadRequestBodyAsync(request.BodyReader).ConfigureAwait(false);
+                msg = $"[{request.Method}] {request.Path}{request.QueryString} {body}";
+            }
+            if (ex == null)
+                _logger.LogWarning($"{msg} \r\n {errMsg}");
+            else
+                _logger.LogError(ex, $"{msg} \r\n {errMsg}");
         }
 
         private async Task<string> ReadRequestBodyAsync(PipeReader reader)
