@@ -118,7 +118,7 @@ namespace Qf.SysTodoList.WebApi
             }
             app.UseStaticFiles();
             app.UseHttpsRedirection();
-
+            app.UseErrorHandling();
             app.UseQfAutoMapper();
 
             app.UseRouting();
