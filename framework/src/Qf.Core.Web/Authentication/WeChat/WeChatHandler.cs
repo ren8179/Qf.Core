@@ -284,11 +284,15 @@ namespace Qf.Core.Web.Authentication.WeChat
 
         private static string GetOpenId(JsonDocument json)
         {
-            return json.RootElement.GetProperty("openid").GetString();
+            if (json.RootElement.TryGetProperty("openid", out JsonElement value))
+                return value.GetString();
+            return "";
         }
         private static string GetUnionId(JsonDocument json)
         {
-            return json.RootElement.GetProperty("unionid").GetString();
+            if (json.RootElement.TryGetProperty("unionid", out JsonElement value))
+                return value.GetString();
+            return "";
         }
 
         /// <summary>
