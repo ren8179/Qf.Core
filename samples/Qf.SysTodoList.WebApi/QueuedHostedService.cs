@@ -107,9 +107,22 @@ namespace Qf.SysTodoList.WebApi
             }
         }
 
+
+        private bool isDisposed;
         public void Dispose()
         {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        protected virtual void Dispose(bool disposing)
+        {
+            if (isDisposed) return;
+            if (disposing)
+            {
+
+            }
             _shutdown.Dispose();
+            isDisposed = true;
         }
     }
 }

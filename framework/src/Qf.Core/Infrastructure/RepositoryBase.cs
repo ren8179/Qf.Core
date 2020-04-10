@@ -38,22 +38,26 @@ namespace Qf.Core.Infrastructure
         }
 
         public abstract void Del(TEntity model, bool autoSave = false);
+        public abstract Task DelAsync(TKey id, bool autoSave = false, CancellationToken cancellationToken = default);
         public virtual Task DelAsync(TEntity entity, bool autoSave = false, CancellationToken cancellationToken = default)
         {
             Del(entity, autoSave);
             return Task.CompletedTask;
         }
-
+        public abstract Task DelAsync(Expression<Func<TEntity, bool>> predicate, bool autoSave = false, CancellationToken cancellationToken = default);
         protected virtual CancellationToken GetCancellationToken(CancellationToken prefferedValue = default)
         {
             return prefferedValue == default || prefferedValue == CancellationToken.None
                 ? CancellationTokenProvider.Token
                 : prefferedValue;
         }
-
+        public abstract TEntity Get(TKey id);
+        public abstract TEntity Get(Expression<Func<TEntity, bool>> predicate);
         public abstract Task<TEntity> GetAsync(TKey id, CancellationToken cancellationToken = default);
         public abstract Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
         public abstract Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
         public abstract Task<long> GetCountAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
+        public abstract void Complete();
+        public abstract Task CompleteAsync(CancellationToken cancellationToken = default);
     }
 }

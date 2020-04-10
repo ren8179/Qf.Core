@@ -86,7 +86,20 @@ namespace Qf.Core.EFCore.Repositories
                 DbContext.SaveChanges();
             }
         }
+        public override async Task DelAsync(TKey id, bool autoSave = false, CancellationToken cancellationToken = default)
+        {
+            var entity = await DbSet.FindAsync(new object[] { id }, GetCancellationToken(cancellationToken));
+            if (entity == null)
+            {
+                return;
+            }
+            DbSet.Remove(entity);
 
+            if (autoSave)
+            {
+                await DbContext.SaveChangesAsync(GetCancellationToken(cancellationToken));
+            }
+        }
         public override async Task DelAsync(TEntity entity, bool autoSave = false, CancellationToken cancellationToken = default)
         {
             DbSet.Remove(entity);
@@ -97,6 +110,30 @@ namespace Qf.Core.EFCore.Repositories
             }
         }
 
+        public override async Task DelAsync(Expression<Func<TEntity, bool>> predicate, bool autoSave = false, CancellationToken cancellationToken = default)
+        {
+            var entity = await DbSet.AsQueryable().FirstOrDefaultAsync(predicate, GetCancellationToken(cancellationToken));
+            DbSet.Remove(entity);
+
+            if (autoSave)
+            {
+                await DbContext.SaveChangesAsync(GetCancellationToken(cancellationToken));
+            }
+        }
+        public override TEntity Get(TKey id)
+        {
+            var entity = DbSet.Find(new object[] { id });
+            if (entity == null)
+            {
+                throw new EntityNotFoundException(typeof(TEntity), id);
+            }
+
+            return entity;
+        }
+        public override TEntity Get(Expression<Func<TEntity, bool>> predicate)
+        {
+            return DbSet.AsQueryable().FirstOrDefault(predicate);
+        }
         public override async Task<TEntity> GetAsync(TKey id, CancellationToken cancellationToken = default)
         {
             var entity = await DbSet.FindAsync(new object[] { id }, GetCancellationToken(cancellationToken));
@@ -118,6 +155,14 @@ namespace Qf.Core.EFCore.Repositories
         public override async Task<long> GetCountAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
         {
             return await DbSet.LongCountAsync(GetCancellationToken(cancellationToken));
+        }
+        public override void Complete()
+        {
+            DbContext.SaveChanges();
+        }
+        public override async Task CompleteAsync(CancellationToken cancellationToken = default)
+        {
+            await DbContext.SaveChangesAsync(GetCancellationToken(cancellationToken));
         }
     }
 }
