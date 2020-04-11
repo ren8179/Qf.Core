@@ -41,7 +41,7 @@ namespace Qf.Core.Web.Extension
                 var statusCode = context.Response.StatusCode;
                 if (ex is ArgumentException) statusCode = 200;
                 HandleException(context.Response, statusCode, ex.Message);
-                await LogRequestInfo(context.Request, ex.Message);
+                await LogRequestInfo(context.Request, ex.Message,ex);
             }
             finally
             {

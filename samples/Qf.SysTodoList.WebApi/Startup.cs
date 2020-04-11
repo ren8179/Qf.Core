@@ -161,7 +161,7 @@ namespace Qf.SysTodoList.WebApi
             {
                 options.Filters.Add(typeof(WebApiResultMiddleware));
             })
-            .AddNewtonsoftJson();//添加基于 Newtonsoft.Json 的 JSON 格式支持
+            .AddNewtonsoftJson(option => { option.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss"; });//添加基于 Newtonsoft.Json 的 JSON 格式支持
             //.AddJsonOptions(options =>
             //{
             //    options.JsonSerializerOptions.Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping;

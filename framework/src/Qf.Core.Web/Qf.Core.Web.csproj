@@ -11,9 +11,9 @@
     <PackageProjectUrl>https://github.com/ren8179/Qf.Core/tree/master/src/Qf.Core.Web</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ren8179/Qf.Core</RepositoryUrl>
     <PackageLicenseFile>README.md</PackageLicenseFile>
-    <Version>1.0.0.3</Version>
-    <AssemblyVersion>1.0.0.3</AssemblyVersion>
-    <FileVersion>1.0.0.3</FileVersion>
+    <Version>1.0.3.1</Version>
+    <AssemblyVersion>1.0.3.1</AssemblyVersion>
+    <FileVersion>1.0.3.1</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
