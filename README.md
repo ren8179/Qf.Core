@@ -20,7 +20,25 @@
 * **Qf.Core.Web**
 
     asp.net core mvc 项目扩展,添加了微信登录([WeChat](https://github.com/ren8179/Qf.Core/tree/master/framework/src/Qf.Core.Web/Authentication/WeChat)),自定义授权认证([BearerAuthorize](https://github.com/ren8179/Qf.Core/tree/master/framework/src/Qf.Core.Web/Authorization)),全局异常处理([ErrorHandling](https://github.com/ren8179/Qf.Core/blob/master/framework/src/Qf.Core.Web/Extension/ErrorHandlingExtensions.cs)),返回值封装([WebApiResult](https://github.com/ren8179/Qf.Core/tree/master/framework/src/Qf.Core.Web/Filters)))
+    
+* **Qf.Extensions.Configuration.Encryption**
 
+  asp.net core mvc 项目扩展,提供配置文件加密功能
+  用法如下:
+  
+```
+            var builder = new ConfigurationBuilder();
+            if (isNotDebug)
+            {
+                builder.AddEncryptionFile("appsettings.encryption", optional: false, reloadOnChange: true);
+            }
+            else
+            {
+                builder.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+            }
+            return builder.Build();
+```
+  
 ### samples 示例项目TodoList解决方案
 * **Qf.SysTodoList.Application** 应用层
 * **Qf.SysTodoList.Domain** 领域层
