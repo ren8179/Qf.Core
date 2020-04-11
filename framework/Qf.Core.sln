@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qf.Core.Web", "src\Qf.Core.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qf.Core.AutoMapper", "src\Qf.Core.AutoMapper\Qf.Core.AutoMapper.csproj", "{8ED4DE7C-6A05-4001-BE81-A3FF3A667D92}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qf.Extensions.Configuration.Encryption", "src\Qf.Extensions.Configuration.Encryption\Qf.Extensions.Configuration.Encryption.csproj", "{931496F3-FAAD-4277-A6B2-E4365D03FCD2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{8ED4DE7C-6A05-4001-BE81-A3FF3A667D92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8ED4DE7C-6A05-4001-BE81-A3FF3A667D92}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8ED4DE7C-6A05-4001-BE81-A3FF3A667D92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{931496F3-FAAD-4277-A6B2-E4365D03FCD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{931496F3-FAAD-4277-A6B2-E4365D03FCD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{931496F3-FAAD-4277-A6B2-E4365D03FCD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{931496F3-FAAD-4277-A6B2-E4365D03FCD2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +50,7 @@ Global
 		{2FE96E30-A754-411D-BAAD-1208872B3EE6} = {F6EAEA5C-F2E0-47F0-9489-17FF92394993}
 		{DC20B874-C523-4087-BE18-CD77619FD09B} = {F6EAEA5C-F2E0-47F0-9489-17FF92394993}
 		{8ED4DE7C-6A05-4001-BE81-A3FF3A667D92} = {F6EAEA5C-F2E0-47F0-9489-17FF92394993}
+		{931496F3-FAAD-4277-A6B2-E4365D03FCD2} = {F6EAEA5C-F2E0-47F0-9489-17FF92394993}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {24DF645B-E8E2-48C8-8527-8803CF7DB49F}
