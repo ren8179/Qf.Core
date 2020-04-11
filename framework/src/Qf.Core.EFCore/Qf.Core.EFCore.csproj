@@ -6,7 +6,7 @@
     <Authors>Ren Qi</Authors>
     <Company>Ren Qi</Company>
     <Product>Ren Qi</Product>
-    <Description>基于.net core 3.1 的微服务开发框架</Description>
+    <Description>基于.net core 3.1 的微服务开发框架 基于EntityFrameworkCore的仓储基类,默认使用统一工作单元,自动注入默认仓储.</Description>
     <PackageProjectUrl>https://github.com/ren8179/Qf.Core/tree/master/src/Qf.Core.EFCore</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ren8179/Qf.Core</RepositoryUrl>
     <PackageLicenseFile>README.md</PackageLicenseFile>

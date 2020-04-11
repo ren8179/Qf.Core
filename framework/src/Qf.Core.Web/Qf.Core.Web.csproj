@@ -14,6 +14,7 @@
     <Version>1.0.3.1</Version>
     <AssemblyVersion>1.0.3.1</AssemblyVersion>
     <FileVersion>1.0.3.1</FileVersion>
+    <Description>基于.net core 3.1 的微服务开发框架  asp.net core mvc 项目扩展,添加了微信登录(WeChat),自定义授权认证(BearerAuthorize),全局异常处理(ErrorHandling),返回值封装(WebApiResult))</Description>
   </PropertyGroup>
 
   <ItemGroup>

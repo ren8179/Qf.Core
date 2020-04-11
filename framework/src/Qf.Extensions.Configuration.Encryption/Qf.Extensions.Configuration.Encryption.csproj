@@ -6,7 +6,7 @@
     <Authors>Ren Qi</Authors>
     <Company>Ren Qi</Company>
     <Product>Ren Qi</Product>
-    <Description>基于.net core 3.1 的微服务开发框架</Description>
+    <Description>基于.net core 3.1 的微服务开发框架 asp.net core mvc 项目扩展,提供配置文件加密功能</Description>
     <PackageProjectUrl>https://github.com/ren8179/Qf.Core/tree/master/src/Qf.Extensions.Configuration.Encryption</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ren8179/Qf.Core</RepositoryUrl>
     <PackageLicenseFile>README.md</PackageLicenseFile>

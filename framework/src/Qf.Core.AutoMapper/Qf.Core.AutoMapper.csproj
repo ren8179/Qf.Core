@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Description>基于.net core 3.1 的微服务开发框架</Description>
+    <Description>基于.net core 3.1 的微服务开发框架  基于AutoMapper的对象映射</Description>
     <Version>1.0.0.3</Version>
     <AssemblyVersion>1.0.0.3</AssemblyVersion>
     <FileVersion>1.0.0.3</FileVersion>
