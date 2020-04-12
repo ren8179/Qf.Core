@@ -3,8 +3,10 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Description>基于.net core 3.1 的微服务开发框架</Description>
-    <Version>1.0.0.2</Version>
+    <Description>基于.net core 3.1 的微服务开发框架  基于AutoMapper的对象映射</Description>
+    <Version>1.0.0.3</Version>
+    <AssemblyVersion>1.0.0.3</AssemblyVersion>
+    <FileVersion>1.0.0.3</FileVersion>
     <PackageProjectUrl>https://github.com/ren8179/Qf.Core/tree/master/src/Qf.Core.AutoMapper</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ren8179/Qf.Core</RepositoryUrl>
     <Authors>Ren Qi</Authors>
@@ -14,11 +16,8 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Qf.Core\Qf.Core.csproj" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.3" />
+    <PackageReference Include="Qf.Core" Version="1.0.0.3" />
   </ItemGroup>
 
   <ItemGroup>

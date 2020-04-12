@@ -129,6 +129,17 @@ namespace Qf.Core.Web.Authentication.WeChat
             var code = query["code"];
             var state = query["state"];
             _logger.LogDebug($"接收微信授权的回调 code:{code} state:{state}");
+
+            if (StringValues.IsNullOrEmpty(code))
+            {
+                return HandleRequestResult.Fail("Code was not found.");
+            }
+
+            if (StringValues.IsNullOrEmpty(state))
+            {
+                return HandleRequestResult.Fail("State was not found.");
+            }
+
             var properties = Options.StateDataFormat.Unprotect(state);
             if (properties == null)
             {
@@ -140,11 +151,6 @@ namespace Qf.Core.Web.Authentication.WeChat
             {
                 _logger.LogWarning("Correlation failed.");
                 //return HandleRequestResult.Fail("Correlation failed.");
-            }
-
-            if (StringValues.IsNullOrEmpty(code)) //code为null就是
-            {
-                return HandleRequestResult.Fail("Code was not found.", properties);
             }
 
             //第二步，通过Code获取Access Token
@@ -254,11 +260,11 @@ namespace Qf.Core.Web.Authentication.WeChat
         protected override async Task<AuthenticationTicket> CreateTicketAsync(ClaimsIdentity identity, AuthenticationProperties properties, OAuthTokenResponse tokens)
         {
             var openId = GetOpenId(tokens.Response);
-            var unionId = GetUnionId(tokens.Response);
-            var user = tokens.Response;
+            //var unionId = GetUnionId(tokens.Response);
+            //var user = tokens.Response;
             //微信获取用户信息是需要开通权限的，没有开通权限的只能用openId来标示用户
-            if (!string.IsNullOrEmpty(unionId))
-            {
+            //if (!string.IsNullOrEmpty(unionId))
+            //{
                 //获取用户信息
                 var parameters = new Dictionary<string, string>
                 {
@@ -273,8 +279,8 @@ namespace Qf.Core.Web.Authentication.WeChat
                     throw new HttpRequestException($"未能获取到微信用户个人信息(返回状态码:{userInfoResponse.StatusCode})，请检查access_token是正确。");
                 }
 
-                user = JsonDocument.Parse(await userInfoResponse.Content.ReadAsStringAsync());
-            }
+               var user = JsonDocument.Parse(await userInfoResponse.Content.ReadAsStringAsync());
+            //}
 
             var context = new OAuthCreatingTicketContext(new ClaimsPrincipal(identity), properties, Context, Scheme, Options, Backchannel, tokens, user.RootElement);
             context.RunClaimActions();
@@ -284,11 +290,15 @@ namespace Qf.Core.Web.Authentication.WeChat
 
         private static string GetOpenId(JsonDocument json)
         {
-            return json.RootElement.GetProperty("openid").GetString();
+            if (json.RootElement.TryGetProperty("openid", out JsonElement value))
+                return value.GetString();
+            return "";
         }
         private static string GetUnionId(JsonDocument json)
         {
-            return json.RootElement.GetProperty("unionid").GetString();
+            if (json.RootElement.TryGetProperty("unionid", out JsonElement value))
+                return value.GetString();
+            return "";
         }
 
         /// <summary>

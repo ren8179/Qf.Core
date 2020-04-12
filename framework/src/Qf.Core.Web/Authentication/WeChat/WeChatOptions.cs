@@ -40,7 +40,11 @@ namespace Qf.Core.Web.Authentication.WeChat
             ClaimActions.MapJsonKey("urn:wechat:province", "province");//ClaimTypes.StateOrProvince
             ClaimActions.MapJsonKey("urn:wechat:city", "city");//ClaimTypes.StreetAddress
             ClaimActions.MapJsonKey(ClaimTypes.Uri, "headimgurl");
-            ClaimActions.MapCustomJson("urn:wechat:privilege", user => string.Join(",", user.GetProperty("privilege").EnumerateArray().Select(s => s.GetString()).ToArray() ?? new string[0]));
+            ClaimActions.MapCustomJson("urn:wechat:privilege", user => {
+                if (user.TryGetProperty("privilege", out System.Text.Json.JsonElement value))
+                    return string.Join(",", value.EnumerateArray().Select(s => s.GetString()).ToArray() ?? new string[0]);
+                return "";
+            });
             ClaimActions.MapJsonKey("urn:wechat:unionid", "unionid");
 
             IsWeChatBrowser = (r) => r.Headers[HeaderNames.UserAgent].ToString().ToLower().Contains("micromessenger");
