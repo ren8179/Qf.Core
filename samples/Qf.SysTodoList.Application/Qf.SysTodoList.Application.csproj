@@ -5,10 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DotNetCore.CAP" Version="3.0.0" />
-    <PackageReference Include="MediatR" Version="7.0.0" />
+    <PackageReference Include="DotNetCore.CAP" Version="3.0.3" />
+    <PackageReference Include="MediatR" Version="8.0.1" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="Qf.Core.AutoMapper" Version="1.0.0.2" />
+    <PackageReference Include="Qf.Core.AutoMapper" Version="1.0.0.3" />
   </ItemGroup>
 
   <ItemGroup>

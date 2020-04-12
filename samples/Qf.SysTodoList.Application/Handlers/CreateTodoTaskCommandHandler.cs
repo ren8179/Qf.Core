@@ -6,8 +6,6 @@ using Qf.SysTodoList.Application.Commands;
 using Qf.SysTodoList.Application.Dto;
 using Qf.SysTodoList.Domain;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

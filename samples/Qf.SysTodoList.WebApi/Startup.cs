@@ -12,7 +12,6 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Qf.Core;
 using Qf.Core.AutoMapper;
 using Qf.Core.DependencyInjection;
 using Qf.Core.DynamicProxy.Castle;
@@ -161,7 +160,7 @@ namespace Qf.SysTodoList.WebApi
             {
                 options.Filters.Add(typeof(WebApiResultMiddleware));
             })
-            .AddNewtonsoftJson();//添加基于 Newtonsoft.Json 的 JSON 格式支持
+            .AddNewtonsoftJson(options => { options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss"; });//添加基于 Newtonsoft.Json 的 JSON 格式支持
             //.AddJsonOptions(options =>
             //{
             //    options.JsonSerializerOptions.Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
@@ -198,7 +197,7 @@ namespace Qf.SysTodoList.WebApi
             var hcBuilder = services.AddHealthChecks();
 
             hcBuilder.AddCheck("self", () => HealthCheckResult.Healthy());
-            hcBuilder.AddSqlServer(configuration["ConnectionString"]);
+            hcBuilder.AddSqlServer(configuration["ConnectionStrings:Default"]);
 
             return services;
         }
@@ -217,7 +216,7 @@ namespace Qf.SysTodoList.WebApi
             services.AddHostedService<QueuedHostedService>();
 
             services.AddOptions();
-            services.Configure<AppSettings>(configuration);
+            services.Configure<Core.AppSettings>(configuration);
             services.Configure<DbConnectionOptions>(configuration);
             return services;
         }
