@@ -152,9 +152,13 @@ namespace Qf.Core.EFCore.Repositories
         {
             return await DbSet.AsQueryable().Where(predicate).ToListAsync(GetCancellationToken(cancellationToken));
         }
+        public override long GetCount(Expression<Func<TEntity, bool>> predicate)
+        {
+            return DbSet.LongCount(predicate);
+        }
         public override async Task<long> GetCountAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
         {
-            return await DbSet.LongCountAsync(GetCancellationToken(cancellationToken));
+            return await DbSet.LongCountAsync(predicate, GetCancellationToken(cancellationToken));
         }
         public override void Complete()
         {

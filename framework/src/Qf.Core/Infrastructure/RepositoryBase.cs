@@ -56,6 +56,7 @@ namespace Qf.Core.Infrastructure
         public abstract Task<TEntity> GetAsync(TKey id, CancellationToken cancellationToken = default);
         public abstract Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
         public abstract Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
+        public abstract long GetCount(Expression<Func<TEntity, bool>> predicate);
         public abstract Task<long> GetCountAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
         public abstract void Complete();
         public abstract Task CompleteAsync(CancellationToken cancellationToken = default);
