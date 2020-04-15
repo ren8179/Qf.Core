@@ -79,6 +79,10 @@ namespace Qf.Core.EFCore.Repositories
 
         public override void Del(TEntity entity, bool autoSave = false)
         {
+            if (entity == null)
+            {
+                return;
+            }
             DbSet.Remove(entity);
 
             if (autoSave)
@@ -102,6 +106,10 @@ namespace Qf.Core.EFCore.Repositories
         }
         public override async Task DelAsync(TEntity entity, bool autoSave = false, CancellationToken cancellationToken = default)
         {
+            if (entity == null)
+            {
+                return;
+            }
             DbSet.Remove(entity);
 
             if (autoSave)
@@ -113,6 +121,8 @@ namespace Qf.Core.EFCore.Repositories
         public override async Task DelAsync(Expression<Func<TEntity, bool>> predicate, bool autoSave = false, CancellationToken cancellationToken = default)
         {
             var entity = await DbSet.AsQueryable().FirstOrDefaultAsync(predicate, GetCancellationToken(cancellationToken));
+            if (entity == null)
+                return;
             DbSet.Remove(entity);
 
             if (autoSave)
