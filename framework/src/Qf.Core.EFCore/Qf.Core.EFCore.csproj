@@ -12,9 +12,9 @@
     <RepositoryUrl>https://github.com/ren8179/Qf.Core</RepositoryUrl>
     <PackageLicenseFile>README.md</PackageLicenseFile>
     <PackageIcon>icon.png</PackageIcon>
-    <Version>1.0.3.3</Version>
-    <AssemblyVersion>1.0.3.3</AssemblyVersion>
-    <FileVersion>1.0.3.3</FileVersion>
+    <Version>1.0.3.4</Version>
+    <AssemblyVersion>1.0.3.4</AssemblyVersion>
+    <FileVersion>1.0.3.4</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

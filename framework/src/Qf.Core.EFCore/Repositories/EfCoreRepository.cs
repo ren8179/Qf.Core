@@ -147,11 +147,6 @@ namespace Qf.Core.EFCore.Repositories
         public override async Task<TEntity> GetAsync(TKey id, CancellationToken cancellationToken = default)
         {
             var entity = await DbSet.FindAsync(new object[] { id }, GetCancellationToken(cancellationToken));
-            if (entity == null)
-            {
-                throw new EntityNotFoundException(typeof(TEntity), id);
-            }
-
             return entity;
         }
         public override async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
