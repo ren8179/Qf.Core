@@ -29,7 +29,7 @@ namespace Qf.Core.Web.Filters
                     var objectResult = context.Result as ObjectResult;
                     if (objectResult.Value == null)
                     {
-                        context.Result = new ObjectResult(new ResultMsg { Code = 200, Msg = "暂无数据", Success = true });
+                        context.Result = new ObjectResult(new ResultMsg { Code = 200, Msg = "暂无数据", Success = false });
                     }
                     else if (objectResult.StatusCode >= 400)
                     {
