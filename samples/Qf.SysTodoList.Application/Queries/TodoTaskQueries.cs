@@ -24,6 +24,33 @@ namespace Qf.SysTodoList.Application.Queries
             return await GetPageListAsync<TodoTaskDto>("TodoTask", page, pageSize, whereStr);
         }
         /// <summary>
+        /// 分页查询列表
+        /// </summary>
+        /// <param name="fieldName">字段名称</param>
+        /// <param name="keyValue">属性值</param>
+        /// <param name="startTime">开始时间</param>
+        /// <param name="endTime">结束时间</param>
+        /// <param name="page">当前页</param>
+        /// <param name="pageSize">每页显示的条数</param>
+        /// <returns></returns>
+        public async Task<PageDto<TodoTaskDto>> GetPageListAsync(string fieldName, string keyValue, string startTime, string endTime, int page = 1, int pageSize = 20)
+        {
+            string whereStr = "1=1";
+            if (!string.IsNullOrEmpty(fieldName) && !string.IsNullOrEmpty(keyValue))
+            {
+                whereStr += $" and {fieldName} like '%{keyValue}%'";
+            }
+            if (!string.IsNullOrEmpty(startTime))
+            {
+                whereStr += $" and CreationTime>='{startTime}'";
+            }
+            if (!string.IsNullOrEmpty(endTime))
+            {
+                whereStr += $" and CreationTime<='{endTime}'";
+            }
+            return await GetPageListAsync<TodoTaskDto>("TodoTask", page, pageSize, whereStr);
+        }
+        /// <summary>
         /// 查询详细信息
         /// </summary>
         public async Task<TodoTaskDto> GetModelAsync(Guid id)
