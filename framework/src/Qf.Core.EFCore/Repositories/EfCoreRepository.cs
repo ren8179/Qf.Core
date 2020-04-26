@@ -120,10 +120,10 @@ namespace Qf.Core.EFCore.Repositories
 
         public override async Task DelAsync(Expression<Func<TEntity, bool>> predicate, bool autoSave = false, CancellationToken cancellationToken = default)
         {
-            var entity = await DbSet.AsQueryable().FirstOrDefaultAsync(predicate, GetCancellationToken(cancellationToken));
-            if (entity == null)
+            var entity = await DbSet.AsQueryable().Where(predicate).ToListAsync(GetCancellationToken(cancellationToken));
+            if (entity == null || entity.Count<1)
                 return;
-            DbSet.Remove(entity);
+            DbSet.RemoveRange(entity);
 
             if (autoSave)
             {
