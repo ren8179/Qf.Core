@@ -39,6 +39,10 @@
 * **Qf.Extensions.Configuration.Encryption**
 
   asp.net core mvc 项目扩展,提供配置文件加密功能
+  
+  你可以运行以下命令在你的项目中使用类库
+  > PM> Install-Package Qf.Extensions.Configuration.Encryption -Version 1.0.0.3
+  
   用法如下:
   
 ```
@@ -53,9 +57,7 @@
             }
             return builder.Build();
 ```
-  
-    你可以运行以下命令在你的项目中使用类库
-    > PM> Install-Package Qf.Extensions.Configuration.Encryption -Version 1.0.0.3
+   
 
 ### samples 示例项目TodoList解决方案
 * **Qf.SysTodoList.Application** 应用层
