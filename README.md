@@ -61,3 +61,8 @@
 ### 参考项目
 * [abp](https://github.com/abpframework/abp)
 * [eShopOnContainers](https://github.com/dotnet-architecture/eShopOnContainers)
+
+### 捐赠
+如果您觉得 **Qf.Core项目** 对您有所帮助，可以请作者媳妇儿喝一杯咖啡
+
+![微信赞赏码](https://github.com/ren8179/blog/blob/master/wxzsm.jpg)
