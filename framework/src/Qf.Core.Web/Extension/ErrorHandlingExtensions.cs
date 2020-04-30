@@ -31,17 +31,22 @@ namespace Qf.Core.Web.Extension
                 context.Request.EnableBuffering();
                 await next(context).ConfigureAwait(false);
             }
+            catch (OperationCanceledException ex)
+            {
+                HandleException(context.Response, 499, ex.Message);
+                await LogRequestInfo(context.Request, ex.Message);
+            }
             catch (EPTException ex)
             {
                 HandleException(context.Response, 200, ex.Message);
-                await LogRequestInfo(context.Request,ex.Message);
+                await LogRequestInfo(context.Request, ex.Message);
             }
             catch (Exception ex)
             {
                 var statusCode = context.Response.StatusCode;
                 if (ex is ArgumentException) statusCode = 200;
                 HandleException(context.Response, statusCode, ex.Message);
-                await LogRequestInfo(context.Request, ex.Message,ex);
+                await LogRequestInfo(context.Request, ex.Message, ex);
             }
             finally
             {
