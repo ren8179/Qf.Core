@@ -16,7 +16,7 @@ namespace Qf.Core.Tasks
 
     public class BackgroundTaskQueue : IBackgroundTaskQueue, IDisposable
     {
-        private ConcurrentQueue<Func<IBackgroundTaskQueue, CancellationToken, Task>> _workItems = new ConcurrentQueue<Func<IBackgroundTaskQueue, CancellationToken, Task>>();
+        private static ConcurrentQueue<Func<IBackgroundTaskQueue, CancellationToken, Task>> _workItems = new ConcurrentQueue<Func<IBackgroundTaskQueue, CancellationToken, Task>>();
         private SemaphoreSlim _signal = new SemaphoreSlim(0);
 
         public void QueueBackgroundWorkItem(Func<IBackgroundTaskQueue, CancellationToken, Task> workItem)
@@ -39,10 +39,21 @@ namespace Qf.Core.Tasks
             _workItems.TryDequeue(out var workItem);
             return workItem;
         }
-
+        private bool isDisposed;
         public void Dispose()
         {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        protected virtual void Dispose(bool disposing)
+        {
+            if (isDisposed) return;
+            if (disposing)
+            {
+
+            }
             _signal.Dispose();
+            isDisposed = true;
         }
     }
 }
