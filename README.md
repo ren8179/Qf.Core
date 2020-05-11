@@ -13,7 +13,7 @@
     核心类库,部分代码参考自[abp](https://github.com/abpframework/abp)项目,用来实现框架的基础功能
 
     你可以运行以下命令在你的项目中使用类库
-    > PM> Install-Package Qf.Core -Version 1.0.3.2
+    > PM> Install-Package Qf.Core -Version 1.0.3.3
 
 * **Qf.Core.AutoMapper**
 
