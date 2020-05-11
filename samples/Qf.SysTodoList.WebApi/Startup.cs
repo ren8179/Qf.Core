@@ -62,7 +62,7 @@ namespace Qf.SysTodoList.WebApi
                 .AddCustomDbContext(Configuration)
                 .AddHttpClient()
                 .AddMemoryCache()
-                .AddRedisCache(Configuration)
+                .AddRedisCache(Configuration) //如果不用redis,请切换为内存缓存 .AddDistributedMemoryCache()
                 .AddCustomSwagger(Configuration)
                 .AddCustomConfiguration(Configuration);
             services.AddAuthentication(BearerAuthorizeAttribute.DefaultAuthenticationScheme)
