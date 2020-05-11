@@ -15,19 +15,11 @@ namespace Qf.Core.Web.Filters
                 context.Result = new ObjectResult(new ResultMsg { Code = 404, Msg = "未找到资源", Success = false });
             else
             {
-                if (context.Result is BadRequestObjectResult)
-                {
-                    var errResult = context.Result as BadRequestObjectResult;
-                    context.Result = new ObjectResult(new ResultMsg { Code = 400, Msg = "请求失败", Result = errResult.Value, Success = false });
-                }
-                else if (context.Result is EmptyResult)
-                {
-                    context.Result = new ObjectResult(new ResultMsg { Code = 404, Msg = "未找到资源", Success = false });
-                }
-                else if (context.Result is ObjectResult)
+                if (context.Result is ObjectResult)
                 {
                     var objectResult = context.Result as ObjectResult;
-                    if (objectResult.Value == null)
+                    if (objectResult.Value is ResultMsg) return;
+                    else if (objectResult.Value == null)
                     {
                         context.Result = new ObjectResult(new ResultMsg { Code = 200, Msg = "暂无数据", Success = false });
                     }
@@ -40,9 +32,18 @@ namespace Qf.Core.Web.Filters
                         context.Result = new ObjectResult(new ResultMsg { Code = 200, Msg = "", Result = objectResult.Value, Success = true });
                     }
                 }
+                else if (context.Result is BadRequestObjectResult)
+                {
+                    var errResult = context.Result as BadRequestObjectResult;
+                    context.Result = new ObjectResult(new ResultMsg { Code = 400, Msg = "请求失败", Result = errResult.Value, Success = false });
+                }
                 else if (context.Result is ContentResult)
                 {
                     context.Result = new ObjectResult(new ResultMsg { Code = 200, Msg = "", Result = (context.Result as ContentResult).Content, Success = true });
+                }
+                else if (context.Result is EmptyResult)
+                {
+                    context.Result = new ObjectResult(new ResultMsg { Code = 404, Msg = "未找到资源", Success = false });
                 }
                 else if (context.Result is StatusCodeResult)
                 {
