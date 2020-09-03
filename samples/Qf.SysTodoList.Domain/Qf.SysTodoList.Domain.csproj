@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Qf.Core" Version="1.0.3.2" />
+    <PackageReference Include="Qf.Core" Version="1.0.3.3" />
   </ItemGroup>
 
 </Project>

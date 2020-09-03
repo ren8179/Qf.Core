@@ -53,19 +53,20 @@ namespace Qf.SysTodoList.WebApi
             IP = config["IP"];
             Port = Convert.ToInt32(config["Port"]);
             Log.Logger = CreateSerilogLogger(config);
+            if (string.IsNullOrEmpty(IP)) IP = NetworkHelper.LocalIPAddress;
+            if (Port == 0) Port = NetworkHelper.GetRandomAvaliablePort();
+            Log.Debug("Configuring host ({Application}) Begin Run host {IP}:{Port} ...", AppName, IP, Port);
+            var host = CreateHostBuilder(args).Build();
             try
             {
-                Log.Debug("Configuring host ({Application})...", AppName);
-                if (string.IsNullOrEmpty(IP)) IP = NetworkHelper.LocalIPAddress;
-                if (Port == 0) Port = NetworkHelper.GetRandomAvaliablePort();
-                var host = CreateHostBuilder(args).Build();
                 Log.Logger.Information("Starting {Application}({version}) {Service} {url} ", AppName, config["Version"], isService ? "win service" : " host", $"http://{IP}:{Port}/");
-                await host.RunAsync().ConfigureAwait(false);
+                await host.RunAsync();
                 return 0;
             }
             catch (Exception ex)
             {
-                Log.Fatal(ex, "Program terminated unexpectedly ({ApplicationContext})!", AppName);
+                Log.Fatal(ex, "Program terminated unexpectedly ({Application})!", AppName);
+                await host.StopAsync();
                 return 1;
             }
             finally
@@ -77,12 +78,12 @@ namespace Qf.SysTodoList.WebApi
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                .UseSerilog()
                 .UseWindowsService()
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder
                     .UseContentRoot(BasePath)
-                    .UseSerilog()
                     .UseStartup<Startup>()
                     .UseUrls($"http://{IP}:{Port}");
                 });
