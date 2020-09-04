@@ -10,10 +10,6 @@
           "Port": "3333"
         }
       ],
-      "DownstreamHeaderTransform": {
-        "Name": "SysTodoList",
-        "X-Forwarded-For": "{RemoteIpAddress}"
-      },
       "FileCacheOptions": { // «Î«Ûª∫¥Ê
         "TtlSeconds": 1,
         "Region": ""
@@ -32,6 +28,9 @@
       },
       "UpstreamPathTemplate": "/{url}",
       "UpstreamHttpMethod": [ "Get", "Post" ],
+      "UpstreamHeaderTransform": {
+        "X-Forwarded-For": "{RemoteIpAddress}"
+      },
       "ReRoutesCaseSensitive": false // non case sensitive
     }
   ],
