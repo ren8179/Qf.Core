@@ -54,7 +54,6 @@ namespace Qf.APIGateway
             try
             {
                 Log.Logger.Information("Starting {Application}({version}) {Service} {url} ", AppName, config["Version"], isService ? "win service" : "web host", $"http://{IP}:{Port}/");
-                Log.Information("ServiceDocNames:{ServiceDocNames}", config["ServiceDocNames"]);
                 await host.RunAsync();
                 return 0;
             }
@@ -75,7 +74,7 @@ namespace Qf.APIGateway
                .ConfigureAppConfiguration((hostingContext, config) =>
                {
                     config
-                        .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
+                        .SetBasePath(BasePath)
                         .AddJsonFile("appsettings.json", true, true)
                         .AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", true, true)
                         .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true)

@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using Ocelot.Provider.Consul;
+using Ocelot.Provider.Polly;
 using Qf.Core.Web.Extension;
 using System.Collections.Generic;
 
@@ -50,7 +52,7 @@ namespace Qf.APIGateway
                     // .AllowCredentials();//指定处理cookie
                 });
             });
-            services.AddOcelot();
+            services.AddOcelot().AddPolly();
         }
         /// <summary>
         /// ConfigureContainer is where you can register things directly with Autofac. This runs after ConfigureServices so the things
@@ -74,7 +76,6 @@ namespace Qf.APIGateway
                     }),
                 ServeUnknownFileTypes = true//设置不限制content-type
             });
-            app.UseErrorHandling();
             app.UseCors(Startup.PolicyName);
             app.UseOcelot().Wait();
         }

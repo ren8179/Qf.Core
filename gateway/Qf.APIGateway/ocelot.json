@@ -1,0 +1,48 @@
+{
+  "Routes": [
+    {
+      "UseServiceDiscovery": false, // use Consul service discovery
+      "DownstreamPathTemplate": "/systodolist/{url}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "127.0.0.1",
+          "Port": "3333"
+        }
+      ],
+      "DownstreamHeaderTransform": {
+        "Name": "SysTodoList",
+        "X-Forwarded-For": "{RemoteIpAddress}"
+      },
+      "FileCacheOptions": { // 请求缓存
+        "TtlSeconds": 1,
+        "Region": ""
+      },
+      "RateLimitOptions": { //限流
+        "ClientWhitelist": [ "admin" ], // 白名单
+        "EnableRateLimiting": true, // 是否启用限流
+        "Period": "1s", // 统计时间段：1s, 5m, 1h, 1d
+        "PeriodTimespan": 10, // 多少秒之后客户端可以重试
+        "Limit": 30 // 在统计时间段内允许的最大请求数量
+      },
+      "QoSOptions": { // 熔断器
+        "ExceptionsAllowedBeforeBreaking": 2, // 允许多少个异常请求
+        "DurationOfBreak": 5000, // 熔断的时间，单位为毫秒
+        "TimeoutValue": 30000 // 如果下游请求的处理时间超过多少则视如该请求超时
+      },
+      "UpstreamPathTemplate": "/{url}",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "ReRoutesCaseSensitive": false // non case sensitive
+    }
+  ],
+  "GlobalConfiguration": {
+    "UseServiceDiscovery": false,
+    //"BaseUrl": ""
+    "RateLimitOptions": { //限流
+      "DisableRateLimitHeaders": false, // Http头  X-Rate-Limit 和 Retry-After 是否禁用
+      "QuotaExceededMessage": "Too many requests", // 当请求过载被截断时返回的消息
+      "HttpStatusCode": 999, // 当请求过载被截断时返回的http status
+      "ClientIdHeader": "client_id" // 用来识别客户端的请求头，默认是 ClientId
+    }
+  }
+}
