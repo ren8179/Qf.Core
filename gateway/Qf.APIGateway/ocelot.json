@@ -10,10 +10,6 @@
           "Port": "3333"
         }
       ],
-      "FileCacheOptions": { // 请求缓存
-        "TtlSeconds": 1,
-        "Region": ""
-      },
       "RateLimitOptions": { //限流
         "ClientWhitelist": [ "admin" ], // 白名单
         "EnableRateLimiting": true, // 是否启用限流
@@ -28,9 +24,9 @@
       },
       "UpstreamPathTemplate": "/{url}",
       "UpstreamHttpMethod": [ "Get", "Post" ],
-      "UpstreamHeaderTransform": {
-        "X-Forwarded-For": "{RemoteIpAddress}"
-      },
+      //"UpstreamHeaderTransform": {
+      //  "X-Forwarded-For": "{RemoteIpAddress}"
+      //},
       "ReRoutesCaseSensitive": false // non case sensitive
     }
   ],

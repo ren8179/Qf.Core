@@ -29,21 +29,10 @@ namespace Qf.APIGateway
         /// </summary>
         public static int Port { get; set; }
 
-        /// <summary>
-        /// Gets or sets ·þÎñÂ·¾¶
-        /// </summary>
-        public static string BasePath { get; set; }
-
         public static async Task<int> Main(string[] args)
         {
             var isService = !(Debugger.IsAttached || args.Contains("--console"));
-            BasePath = AppContext.BaseDirectory;
-            if (isService)
-            {
-                var pathToExe = Process.GetCurrentProcess().MainModule.FileName;
-                BasePath = Path.GetDirectoryName(pathToExe);
-            }
-            var config = GetConfiguration(BasePath);
+            var config = GetConfiguration();
             IP = config["IP"];
             Port = Convert.ToInt32(config["Port"]);
             Log.Logger = CreateSerilogLogger(config);
@@ -74,7 +63,6 @@ namespace Qf.APIGateway
                .ConfigureAppConfiguration((hostingContext, config) =>
                {
                     config
-                        .SetBasePath(BasePath)
                         .AddJsonFile("appsettings.json", true, true)
                         .AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", true, true)
                         .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true)
@@ -84,7 +72,6 @@ namespace Qf.APIGateway
                .ConfigureWebHostDefaults(webBuilder =>
                {
                    webBuilder
-                   .UseContentRoot(BasePath)
                    .UseStartup<Startup>()
                    .UseUrls($"http://{IP}:{Port}");
                });
@@ -98,10 +85,9 @@ namespace Qf.APIGateway
                 .ReadFrom.Configuration(configuration)
                 .CreateLogger();
         }
-        private static IConfiguration GetConfiguration(string basepath)
+        private static IConfiguration GetConfiguration()
         {
             var builder = new ConfigurationBuilder();
-            builder.SetBasePath(basepath);
             builder.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
             return builder.Build();
         }
