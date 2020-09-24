@@ -2,9 +2,6 @@
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.Caching.Distributed;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Qf.Core.Web.Authentication.WeChat
 {
@@ -26,7 +23,6 @@ namespace Qf.Core.Web.Authentication.WeChat
             IDataProtector dataProtector)
             : this(cache, dataProtector, new PropertiesSerializer())
         {
-
         }
 
         public CachedPropertiesDataFormat(

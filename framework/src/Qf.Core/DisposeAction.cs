@@ -1,8 +1,6 @@
 ﻿using JetBrains.Annotations;
 using Qf.Core.Extensions;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Qf.Core
 {

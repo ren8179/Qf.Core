@@ -1,12 +1,7 @@
-﻿using AutoMapper;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Qf.Core.DependencyInjection;
 using Qf.Core.Helper;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Text;
 
 namespace Qf.Core.AutoMapper
 {
@@ -33,6 +28,5 @@ namespace Qf.Core.AutoMapper
             services.AddSingleton<MapperAccessor>(_ => mapperAccessor);
             return services;
         }
-
     }
 }

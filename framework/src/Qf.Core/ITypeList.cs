@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Qf.Core
 {
     /// <summary>
     /// A shortcut for <see cref="ITypeList{TBaseType}"/> to use object as base type.
     /// </summary>
-    public interface ITypeList : ITypeList<object>
-    {
-
-    }
+    public interface ITypeList : ITypeList<object> {}
 
     /// <summary>
     /// Extends <see cref="IList{Type}"/> to add restriction a specific base type.

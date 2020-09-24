@@ -1,9 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using Qf.Core.DependencyInjection;
 using Qf.Core.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Qf.Core.EFCore
 {

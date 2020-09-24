@@ -6,8 +6,8 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.35" />
-    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.1.2" />
-    <PackageReference Include="Qf.Core.EFCore" Version="1.0.3.5" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.2.1" />
+    <PackageReference Include="Qf.Core.EFCore" Version="1.0.3.6" />
   </ItemGroup>
 
   <ItemGroup>

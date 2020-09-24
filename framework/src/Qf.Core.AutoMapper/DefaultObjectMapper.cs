@@ -32,7 +32,6 @@ namespace Qf.Core.AutoMapper
         }
 
         //TODO: It can be slow to always check if service is available. Test it and optimize if necessary.
-
         public virtual TDestination Map<TSource, TDestination>(TSource source)
         {
             if (source == null)

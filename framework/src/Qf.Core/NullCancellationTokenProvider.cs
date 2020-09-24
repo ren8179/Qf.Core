@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 
 namespace Qf.Core
 {
@@ -11,9 +8,6 @@ namespace Qf.Core
 
         public CancellationToken Token { get; } = CancellationToken.None;
 
-        private NullCancellationTokenProvider()
-        {
-
-        }
+        private NullCancellationTokenProvider() {}
     }
 }

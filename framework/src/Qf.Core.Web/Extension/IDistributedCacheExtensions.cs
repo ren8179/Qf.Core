@@ -1,17 +1,13 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 
 namespace Qf.Core.Web.Extension
 {
-	public static class IDistributedCacheExtensions
+    public static class IDistributedCacheExtensions
 	{
-
 		/// <summary>
 		/// 获取缓存，反序列化成对象返回
 		/// </summary>

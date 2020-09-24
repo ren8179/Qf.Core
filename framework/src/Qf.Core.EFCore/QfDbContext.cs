@@ -2,10 +2,6 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Qf.Core.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -49,7 +45,6 @@ namespace Qf.Core.EFCore
         {
             try
             {
-                
                 var result = await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
 
                 return result;
@@ -63,6 +58,5 @@ namespace Qf.Core.EFCore
                 ChangeTracker.AutoDetectChangesEnabled = true;
             }
         }
-
     }
 }
