@@ -2,6 +2,7 @@
 using Qf.SysTodoList.Application.Dto;
 using Qf.SysTodoList.Domain;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Qf.SysTodoList.Application.Queries
@@ -11,7 +12,7 @@ namespace Qf.SysTodoList.Application.Queries
         /// <summary>
         /// 分页查询列表
         /// </summary>
-        Task<PageDto<TodoTaskDto>> GetPageListAsync(TodoType? type, int page = 1, int pageSize = 20);
+        Task<PageDto<TodoTaskDto>> GetPageListAsync(TodoType? type, int page = 1, int pageSize = 20, CancellationToken cancellationToken = default);
         /// <summary>
         /// 分页查询列表
         /// </summary>
@@ -22,10 +23,10 @@ namespace Qf.SysTodoList.Application.Queries
         /// <param name="page">当前页</param>
         /// <param name="pageSize">每页显示的条数</param>
         /// <returns></returns>
-        Task<PageDto<TodoTaskDto>> GetPageListAsync(string fieldName, string keyValue, string startTime, string endTime, int page = 1, int pageSize = 20);
+        Task<PageDto<TodoTaskDto>> GetPageListAsync(string fieldName, string keyValue, string startTime, string endTime, int page = 1, int pageSize = 20, CancellationToken cancellationToken = default);
         /// <summary>
         /// 查询详细信息
         /// </summary>
-        Task<TodoTaskDto> GetModelAsync(Guid id);
+        Task<TodoTaskDto> GetModelAsync(Guid id, CancellationToken cancellationToken = default);
     }
 }

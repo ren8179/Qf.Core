@@ -25,7 +25,7 @@
       "UpstreamPathTemplate": "/{url}",
       "UpstreamHttpMethod": [ "Get", "Post" ],
       //"UpstreamHeaderTransform": {
-      //  "X-Forwarded-For": "{RemoteIpAddress}"
+      //  "X-Forwarded-For": "{RemoteIpAddress}" //转发客户端请求IP.存在性能问题,建议慎用
       //},
       "ReRoutesCaseSensitive": false // non case sensitive
     }

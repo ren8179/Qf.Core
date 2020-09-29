@@ -5,14 +5,21 @@
     <UserSecretsId>c0044429-9230-4c90-bbdf-41d7df082ddc</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>.</DockerfileContext>
+    <Version>1.0.0.3</Version>
+    <Authors>Ren Qi</Authors>
+    <Description>基于Ocelot实现的网关项目</Description>
+    <PackageProjectUrl>https://github.com/ren8179/Qf.Core/tree/master/gateway</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ren8179/Qf.Core</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="HttpReports" Version="1.6.3" />
+    <PackageReference Include="HttpReports.SQLServer" Version="1.6.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
     <PackageReference Include="Ocelot" Version="16.0.1" />
     <PackageReference Include="Ocelot.Provider.Consul" Version="16.0.1" />
     <PackageReference Include="Ocelot.Provider.Polly" Version="16.0.1" />
-    <PackageReference Include="Qf.Core.Web" Version="1.0.3.4" />
+    <PackageReference Include="Qf.Core.Web" Version="1.0.3.6" />
     <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
     <PackageReference Include="Serilog.Enrichers.Thread" Version="3.1.0" />
     <PackageReference Include="Serilog.Sinks.Async" Version="1.4.0" />

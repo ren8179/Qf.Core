@@ -28,31 +28,34 @@ namespace Qf.Core.Web.Extension
             Check.NotNull(context, nameof(context));
             try
             {
-                context.Request.EnableBuffering();
                 await next(context).ConfigureAwait(false);
             }
             catch (OperationCanceledException ex)
             {
+                context.Request.EnableBuffering();
                 HandleException(context.Response, 499, ex.Message);
-                await LogRequestInfo(context.Request, ex.Message);
+                _ = LogRequestInfo(context.Request, ex.Message).ConfigureAwait(false);
             }
             catch (EPTException ex)
             {
+                context.Request.EnableBuffering();
                 HandleException(context.Response, 200, ex.Message);
-                await LogRequestInfo(context.Request, ex.Message);
+                _ = LogRequestInfo(context.Request, ex.Message).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
+                context.Request.EnableBuffering();
                 var statusCode = context.Response.StatusCode;
                 if (ex is ArgumentException) statusCode = 200;
                 HandleException(context.Response, statusCode, ex.Message);
-                await LogRequestInfo(context.Request, ex.Message, ex);
+                _ = LogRequestInfo(context.Request, ex.Message, ex).ConfigureAwait(false);
             }
             finally
             {
                 var statusCode = context.Response.StatusCode;
-                if (statusCode >= 400)
+                if (statusCode >= 400 && statusCode != 499)
                 {
+                    context.Request.EnableBuffering();
                     var msg = GetMsg(statusCode);
                     if (!string.IsNullOrEmpty(msg))
                         HandleException(context.Response, statusCode, msg);
@@ -64,6 +67,7 @@ namespace Qf.Core.Web.Extension
         {
             if (!response.HasStarted)
             {
+                response.StatusCode = statusCode;
                 response.ContentType = "application/json;charset=utf-8";
                 response.WriteAsync(JsonSerializer.Serialize(new ResultMsg
                 {
@@ -89,7 +93,7 @@ namespace Qf.Core.Web.Extension
             var msg = "";
             if (request != null && request.Path != null && !request.Path.Value.Contains("swagger"))
             {
-                var body = await ReadRequestBodyAsync(request.BodyReader).ConfigureAwait(false);
+                var body = await ReadRequestBodyAsync(request.BodyReader);
                 msg = $"[{request.Method}] {request.Path}{request.QueryString} {body}";
             }
             if (ex == null)
@@ -97,7 +101,6 @@ namespace Qf.Core.Web.Extension
             else
                 _logger.LogError(ex, $"{msg} \r\n {errMsg}");
         }
-
         private async Task<string> ReadRequestBodyAsync(PipeReader reader)
         {
             var result = "";

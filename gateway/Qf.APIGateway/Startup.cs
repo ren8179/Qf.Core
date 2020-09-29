@@ -28,6 +28,8 @@ namespace Qf.APIGateway
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //添加HttpReports和存储
+            //services.AddHttpReports().UseSQLServerStorage();
             services.AddCors(options =>
             {
                 var origs = Configuration.GetSection("AllowOrigins").Get<string[]>();
@@ -67,6 +69,8 @@ namespace Qf.APIGateway
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            //使用HttpReports中间件
+            //app.UseHttpReports();
             app.UseStaticFiles(new StaticFileOptions
             {
                 ContentTypeProvider = new FileExtensionContentTypeProvider(new Dictionary<string, string>

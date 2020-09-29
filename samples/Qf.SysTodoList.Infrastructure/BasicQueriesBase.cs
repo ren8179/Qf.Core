@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Qf.SysTodoList.Infrastructure
@@ -24,9 +25,8 @@ namespace Qf.SysTodoList.Infrastructure
         /// <summary>
         /// 分页查询列表
         /// </summary>
-        protected async Task<PageDto<T>> GetPageAsync<T>(string tableName, int page = 1, int pageSize = 10, string where = "", string fields = "*")
+        protected async Task<PageDto<T>> GetPageAsync<T>(string tableName, int page = 1, int pageSize = 10, string where = "", string fields = "*", CancellationToken cancellationToken = default)
         {
-            using var connection = GetConnection();
             var p = new DynamicParameters();
             string proName = "ProcGetPageData";
             p.Add("TableName", tableName);
@@ -37,6 +37,8 @@ namespace Qf.SysTodoList.Infrastructure
             p.Add("PageSize", pageSize);
             p.Add("Sort", "CreationTime DESC");
             p.Add("RecordCount", dbType: DbType.Int32, direction: ParameterDirection.Output);
+            cancellationToken.ThrowIfCancellationRequested();
+            using var connection = GetConnection();
             connection.Open();
             var result = new PageDto<T>
             {
@@ -57,9 +59,8 @@ namespace Qf.SysTodoList.Infrastructure
         /// <param name="page">当前页</param>
         /// <param name="pageSize">当前页显示条数</param>
         /// <returns></returns>
-        protected async Task<PageDto<T>> GetPageListAsync<T>(string tableName, int page = 1, int pageSize = 10, string where = "", string fields = "*", string orderby = "CreationTime DESC")
+        protected async Task<PageDto<T>> GetPageListAsync<T>(string tableName, int page = 1, int pageSize = 10, string where = "", string fields = "*", string orderby = "CreationTime DESC", CancellationToken cancellationToken = default)
         {
-            using var connection = GetConnection();
             int skip = 1;
             if (page > 0)
             {
@@ -74,6 +75,8 @@ namespace Qf.SysTodoList.Infrastructure
                                         ) AS result
                                 WHERE  RowNum >= {4}   AND RowNum <= {5}
                                 ORDER BY {3}", fields, tableName, where, orderby, skip, page * pageSize);
+            cancellationToken.ThrowIfCancellationRequested();
+            using var connection = GetConnection();
             connection.Open();
             var reader = await connection.QueryMultipleAsync(sb.ToString());
             var result = new PageDto<T>
@@ -91,8 +94,9 @@ namespace Qf.SysTodoList.Infrastructure
         /// <typeparam name="T"></typeparam>
         /// <param name="sql"></param>
         /// <returns></returns>
-        protected async Task<T> QueryFirstOrDefaultAsync<T>(string sql, object param = null)
+        protected async Task<T> QueryFirstOrDefaultAsync<T>(string sql, object param = null, CancellationToken cancellationToken = default)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             using var connection = GetConnection();
             connection.Open();
             var result = await connection.QueryAsync<T>(sql, param);
@@ -104,8 +108,9 @@ namespace Qf.SysTodoList.Infrastructure
         /// </summary>
         /// <typeparam name="T">泛型T</typeparam>
         /// <returns></returns>
-        protected async Task<List<T>> QueryAsync<T>(string sql, object param = null)
+        protected async Task<List<T>> QueryAsync<T>(string sql, object param = null, CancellationToken cancellationToken = default)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             using var connection = GetConnection();
             connection.Open();
             var result = await connection.QueryAsync<T>(sql, param);

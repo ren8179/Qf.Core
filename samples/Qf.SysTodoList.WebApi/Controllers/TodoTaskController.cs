@@ -1,16 +1,14 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Qf.SysTodoList.Domain;
 using Qf.SysTodoList.Application.Commands;
 using Qf.SysTodoList.Application.Dto;
 using Qf.SysTodoList.Application.Queries;
+using Qf.SysTodoList.Domain;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Qf.SysTodoList.WebApi.Controllers
@@ -40,9 +38,9 @@ namespace Qf.SysTodoList.WebApi.Controllers
         /// </summary>
         [HttpGet("getpagelist")]
         [ProducesResponseType(typeof(IEnumerable<TodoTaskDto>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<IEnumerable<TodoTaskDto>>> GetPageListAsync(TodoType? type, int page = 1, int pageSize = 20)
+        public async Task<ActionResult<IEnumerable<TodoTaskDto>>> GetPageListAsync(TodoType? type, int page = 1, int pageSize = 20, CancellationToken cancellationToken = default)
         {
-            var list = await _queries.GetPageListAsync(type, page, pageSize);
+            var list = await _queries.GetPageListAsync(type, page, pageSize, cancellationToken);
             return Ok(list);
         }
         /// <summary>
@@ -50,18 +48,18 @@ namespace Qf.SysTodoList.WebApi.Controllers
         /// </summary>
         [HttpGet("getmodel")]
         [ProducesResponseType(typeof(TodoTaskDto), (int)HttpStatusCode.OK)]
-        public async Task<TodoTaskDto> GetModelAsync(Guid id)
+        public async Task<TodoTaskDto> GetModelAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            var model = await _queries.GetModelAsync(id);
+            var model = await _queries.GetModelAsync(id, cancellationToken);
             return model;
         }
         /// <summary>
         /// 创建任务
         /// </summary>
         [HttpPost("create")]
-        public async Task<IActionResult> CreateAsync([FromBody] CreateTodoTaskInput input)
+        public async Task<IActionResult> CreateAsync([FromBody] CreateTodoTaskInput input, CancellationToken cancellationToken = default)
         {
-            var commandResult = await _mediator.Send(new CreateTodoTaskCommand(input));
+            var commandResult = await _mediator.Send(new CreateTodoTaskCommand(input), cancellationToken);
             if (!commandResult) return BadRequest();
             return Ok(commandResult);
         }
@@ -71,7 +69,7 @@ namespace Qf.SysTodoList.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("TestAdd")]
-        public async Task<IActionResult> TestAdd()
+        public async Task<IActionResult> TestAdd(CancellationToken cancellationToken = default)
         {
             try
             {
@@ -84,7 +82,7 @@ namespace Qf.SysTodoList.WebApi.Controllers
                     Type = TodoType.NearTerm
                 };
                 var command = new AddCommand { Model = model };
-                await _mediator.Send(command);
+                await _mediator.Send(command, cancellationToken);
                 return Ok("成功");
             }
             catch (Exception e)

@@ -3,6 +3,7 @@ using Qf.SysTodoList.Application.Dto;
 using Qf.SysTodoList.Domain;
 using Qf.SysTodoList.Infrastructure;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Qf.SysTodoList.Application.Queries
@@ -16,12 +17,12 @@ namespace Qf.SysTodoList.Application.Queries
         /// <summary>
         /// 分页查询列表
         /// </summary>
-        public async Task<PageDto<TodoTaskDto>> GetPageListAsync(TodoType? type, int page = 1, int pageSize = 20)
+        public async Task<PageDto<TodoTaskDto>> GetPageListAsync(TodoType? type, int page = 1, int pageSize = 20, CancellationToken cancellationToken = default)
         {
             var whereStr = "1=1";
             if (type.HasValue)
                 whereStr += $" AND Type={(int)type.Value} ";
-            return await GetPageListAsync<TodoTaskDto>("TodoTask", page, pageSize, whereStr);
+            return await GetPageListAsync<TodoTaskDto>("TodoTask", page, pageSize, whereStr, cancellationToken: cancellationToken);
         }
         /// <summary>
         /// 分页查询列表
@@ -33,7 +34,7 @@ namespace Qf.SysTodoList.Application.Queries
         /// <param name="page">当前页</param>
         /// <param name="pageSize">每页显示的条数</param>
         /// <returns></returns>
-        public async Task<PageDto<TodoTaskDto>> GetPageListAsync(string fieldName, string keyValue, string startTime, string endTime, int page = 1, int pageSize = 20)
+        public async Task<PageDto<TodoTaskDto>> GetPageListAsync(string fieldName, string keyValue, string startTime, string endTime, int page = 1, int pageSize = 20, CancellationToken cancellationToken = default)
         {
             string whereStr = "1=1";
             if (!string.IsNullOrEmpty(fieldName) && !string.IsNullOrEmpty(keyValue))
@@ -48,14 +49,14 @@ namespace Qf.SysTodoList.Application.Queries
             {
                 whereStr += $" and CreationTime<='{endTime}'";
             }
-            return await GetPageListAsync<TodoTaskDto>("TodoTask", page, pageSize, whereStr);
+            return await GetPageListAsync<TodoTaskDto>("TodoTask", page, pageSize, whereStr, cancellationToken: cancellationToken);
         }
         /// <summary>
         /// 查询详细信息
         /// </summary>
-        public async Task<TodoTaskDto> GetModelAsync(Guid id)
+        public async Task<TodoTaskDto> GetModelAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            return await QueryFirstOrDefaultAsync<TodoTaskDto>("SELECT * FROM TodoTask WHERE Id=@id", new { id });
+            return await QueryFirstOrDefaultAsync<TodoTaskDto>("SELECT * FROM TodoTask WHERE Id=@id", new { id }, cancellationToken);
         }
     }
 }

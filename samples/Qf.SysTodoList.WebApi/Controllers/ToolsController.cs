@@ -24,6 +24,7 @@ namespace Qf.SysTodoList.WebApi.Controllers
         }
         /// <summary>
         /// 通过网关Ocelot,获取到客户端IP
+        /// 需要开启Ocelot中的 UpstreamHeaderTransform 配置项
         /// </summary>
         [HttpGet("getClientIP")]
         [AllowAnonymous]

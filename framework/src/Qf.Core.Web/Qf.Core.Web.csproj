@@ -7,16 +7,16 @@
     <IsPackable>true</IsPackable>
     <Authors>Ren Qi</Authors>
     <Company>Ren Qi</Company>
-    <Product>Ren Qi</Product>
+    <Product>Qf.Core.Web</Product>
     <Title>asp.net core mvc 扩展项目</Title>
     <Description>基于.net core 3.1 的微服务开发框架  asp.net core mvc 扩展项目,添加了微信登录(WeChat),自定义授权认证(BearerAuthorize),全局异常处理(ErrorHandling),返回值封装(WebApiResult))</Description>
     <PackageProjectUrl>https://github.com/ren8179/Qf.Core/tree/master/src/Qf.Core.Web</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ren8179/Qf.Core</RepositoryUrl>
     <PackageIcon>icon.png</PackageIcon>
     <PackageLicenseFile>README.md</PackageLicenseFile>
-    <Version>1.0.3.5</Version>
-    <AssemblyVersion>1.0.3.5</AssemblyVersion>
-    <FileVersion>1.0.3.5</FileVersion>
+    <Version>1.0.3.7</Version>
+    <AssemblyVersion>1.0.3.7</AssemblyVersion>
+    <FileVersion>1.0.3.7</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
