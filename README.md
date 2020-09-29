@@ -58,6 +58,9 @@
             return builder.Build();
 ```
    
+### gateway Ocelot网关
+* **Qf.APIGateway** 基于Ocelot实现的API网关
+* **Qf.HttpReports** 基于HttpReports.Dashboard实现的API接口请求监控服务,建议部署为独立的站点
 
 ### samples 示例项目TodoList解决方案
 * **Qf.SysTodoList.Application** 应用层
