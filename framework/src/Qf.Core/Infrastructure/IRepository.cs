@@ -15,7 +15,9 @@ namespace Qf.Core.Infrastructure
     {
 
         TEntity Add([NotNull]TEntity model, bool autoSave = false);
+        void AddRange([NotNull] List<TEntity> entitys, bool autoSave = false);
         Task<TEntity> AddAsync([NotNull] TEntity entity, bool autoSave = false, CancellationToken cancellationToken = default);
+        Task AddRangeAsync([NotNull] List<TEntity> entitys, bool autoSave = false, CancellationToken cancellationToken = default);
         TEntity Update([NotNull]TEntity model, bool autoSave = false);
         Task<TEntity> UpdateAsync([NotNull] TEntity entity, bool autoSave = false, CancellationToken cancellationToken = default);
         void Del([NotNull]TEntity model, bool autoSave = false);

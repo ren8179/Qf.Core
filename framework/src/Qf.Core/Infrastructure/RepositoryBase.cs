@@ -3,7 +3,6 @@ using Qf.Core.Uow;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -25,12 +24,17 @@ namespace Qf.Core.Infrastructure
         }
 
         public abstract TEntity Add(TEntity model, bool autoSave = false);
+        public abstract void AddRange(List<TEntity> entitys, bool autoSave = false);
 
         public virtual Task<TEntity> AddAsync(TEntity entity, bool autoSave = false, CancellationToken cancellationToken = default)
         {
             return Task.FromResult(Add(entity, autoSave));
         }
-
+        public virtual Task AddRangeAsync(List<TEntity> entitys, bool autoSave = false, CancellationToken cancellationToken = default)
+        {
+            AddRange(entitys, autoSave);
+            return Task.CompletedTask;
+        }
         public abstract TEntity Update(TEntity model, bool autoSave = false);
         public virtual Task<TEntity> UpdateAsync(TEntity entity, bool autoSave = false, CancellationToken cancellationToken = default)
         {

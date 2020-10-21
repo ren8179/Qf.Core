@@ -38,6 +38,14 @@ namespace Qf.Core.EFCore.Repositories
 
             return savedEntity;
         }
+        public override void AddRange(List<TEntity> entities, bool autoSave = false)
+        {
+            DbSet.AddRange(entities);
+            if (autoSave)
+            {
+                DbContext.SaveChanges();
+            }
+        }
         public override async Task<TEntity> AddAsync(TEntity entity, bool autoSave = false, CancellationToken cancellationToken = default)
         {
             var savedEntity = DbSet.Add(entity).Entity;
@@ -48,6 +56,15 @@ namespace Qf.Core.EFCore.Repositories
             }
 
             return savedEntity;
+        }
+        public override async Task AddRangeAsync(List<TEntity> entities, bool autoSave = false, CancellationToken cancellationToken = default)
+        {
+            await DbSet.AddRangeAsync(entities, GetCancellationToken(cancellationToken));
+
+            if (autoSave)
+            {
+                await DbContext.SaveChangesAsync(GetCancellationToken(cancellationToken));
+            }
         }
 
         public override TEntity Update(TEntity entity, bool autoSave = false)
@@ -121,7 +138,7 @@ namespace Qf.Core.EFCore.Repositories
         public override async Task DelAsync(Expression<Func<TEntity, bool>> predicate, bool autoSave = false, CancellationToken cancellationToken = default)
         {
             var entity = await DbSet.AsQueryable().Where(predicate).ToListAsync(GetCancellationToken(cancellationToken));
-            if (entity == null || entity.Count<1)
+            if (entity == null || entity.Count < 1)
                 return;
             DbSet.RemoveRange(entity);
 

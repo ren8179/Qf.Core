@@ -13,7 +13,7 @@
     核心类库,部分代码参考自[abp](https://github.com/abpframework/abp)项目,用来实现框架的基础功能
 
     你可以运行以下命令在你的项目中使用类库
-    > PM> Install-Package Qf.Core -Version 1.0.3.4
+    > PM> Install-Package Qf.Core -Version 1.0.3.5
 
 * **Qf.Core.AutoMapper**
 
@@ -27,7 +27,7 @@
     基于EntityFrameworkCore的仓储基类,默认使用统一工作单元,自动注入默认仓储.
     
     你可以运行以下命令在你的项目中使用类库
-    > PM> Install-Package Qf.Core.EFCore -Version 1.0.3.6
+    > PM> Install-Package Qf.Core.EFCore -Version 1.0.3.7
 
 * **Qf.Core.Web**
 
