@@ -29,7 +29,7 @@ namespace Qf.APIGateway
         public void ConfigureServices(IServiceCollection services)
         {
             //添加HttpReports和存储
-            //services.AddHttpReports().UseSQLServerStorage();
+            services.AddHttpReports().UseHttpTransport();
             services.AddCors(options =>
             {
                 var origs = Configuration.GetSection("AllowOrigins").Get<string[]>();
@@ -70,7 +70,7 @@ namespace Qf.APIGateway
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             //使用HttpReports中间件
-            //app.UseHttpReports();
+            app.UseHttpReports();
             app.UseStaticFiles(new StaticFileOptions
             {
                 ContentTypeProvider = new FileExtensionContentTypeProvider(new Dictionary<string, string>

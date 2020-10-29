@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Qf.Core.Web.Extension
 {
-    public class CSRedisCache : IDistributedCache
+	public class CSRedisCache : IDistributedCache
 	{
 		private CSRedis.CSRedisClient _redisClient;
 		public CSRedisCache(CSRedis.CSRedisClient redisClient)

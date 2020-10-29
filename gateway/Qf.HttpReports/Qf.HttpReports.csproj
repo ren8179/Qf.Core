@@ -2,12 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>67607d23-b311-4ed5-af15-d59a2b7f3f2c</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HttpReports.Dashboard" Version="1.6.3" />
-    <PackageReference Include="HttpReports.SQLServer" Version="1.6.0" />
-    <PackageReference Include="Qf.Core.Web" Version="1.0.3.6" />
+    <PackageReference Include="HttpReports.Dashboard" Version="2.0.16" />
+    <PackageReference Include="HttpReports.SQLServer" Version="2.0.16" />
+    <PackageReference Include="Qf.Core.Web" Version="1.0.3.7" />
     <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
     <PackageReference Include="Serilog.Enrichers.Thread" Version="3.1.0" />
     <PackageReference Include="Serilog.Sinks.Async" Version="1.4.0" />

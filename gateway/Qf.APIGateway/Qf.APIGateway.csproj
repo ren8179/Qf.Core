@@ -13,13 +13,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HttpReports" Version="1.6.3" />
-    <PackageReference Include="HttpReports.SQLServer" Version="1.6.0" />
+    <PackageReference Include="HttpReports" Version="2.0.16" />
+    <PackageReference Include="HttpReports.Transport.Http" Version="2.0.16" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
     <PackageReference Include="Ocelot" Version="16.0.1" />
     <PackageReference Include="Ocelot.Provider.Consul" Version="16.0.1" />
     <PackageReference Include="Ocelot.Provider.Polly" Version="16.0.1" />
-    <PackageReference Include="Qf.Core.Web" Version="1.0.3.6" />
+    <PackageReference Include="Qf.Core.Web" Version="1.0.3.7" />
     <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
     <PackageReference Include="Serilog.Enrichers.Thread" Version="3.1.0" />
     <PackageReference Include="Serilog.Sinks.Async" Version="1.4.0" />
