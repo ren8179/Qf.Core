@@ -10,7 +10,7 @@ namespace Qf.SysTodoList.Application.Queries
 {
     public class TodoTaskQueries : BasicQueriesBase, ITodoTaskQueries
     {
-        public TodoTaskQueries(string constr) : base(constr)
+        public TodoTaskQueries(string constr) : base(constr, "TodoTask")
         {
             _connectionString = !string.IsNullOrWhiteSpace(constr) ? constr : throw new ArgumentNullException(nameof(constr));
         }
