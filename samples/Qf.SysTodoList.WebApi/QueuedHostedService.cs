@@ -57,7 +57,7 @@ namespace Qf.SysTodoList.WebApi
                 {
                     TaskQueue.QueueBackgroundWorkItem(item.RunAsync);
                 }
-                Task.Run(BackgroundProceessing).ConfigureAwait(false);
+                Task.Factory.StartNew(BackgroundProceessing, TaskCreationOptions.LongRunning).ConfigureAwait(false);
             }
 
             Task.Delay(TimeSpan.FromSeconds(30)).ContinueWith(HourTimingProceessing).ConfigureAwait(false);
