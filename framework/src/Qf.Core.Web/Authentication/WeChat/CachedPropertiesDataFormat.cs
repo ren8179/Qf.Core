@@ -48,7 +48,7 @@ namespace Qf.Core.Web.Authentication.WeChat
 
             // Rather than encrypt the full AuthenticationProperties
             // cache the data and encrypt the key that points to the data
-            _cache.Set(cacheKey, serialized);
+            _cache.Set(cacheKey, serialized, new DistributedCacheEntryOptions { SlidingExpiration = TimeSpan.FromHours(1) });
 
             return key;
         }

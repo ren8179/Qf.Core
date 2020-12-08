@@ -34,7 +34,7 @@
     asp.net core mvc 项目扩展,添加了微信登录([WeChat](https://github.com/ren8179/Qf.Core/tree/master/framework/src/Qf.Core.Web/Authentication/WeChat)),自定义授权认证([BearerAuthorize](https://github.com/ren8179/Qf.Core/tree/master/framework/src/Qf.Core.Web/Authorization)),全局异常处理([ErrorHandling](https://github.com/ren8179/Qf.Core/blob/master/framework/src/Qf.Core.Web/Extension/ErrorHandlingExtensions.cs)),返回值封装([WebApiResult](https://github.com/ren8179/Qf.Core/tree/master/framework/src/Qf.Core.Web/Filters)))
     
     你可以运行以下命令在你的项目中使用类库
-    > PM> Install-Package Qf.Core.Web -Version 1.0.3.7
+    > PM> Install-Package Qf.Core.Web -Version 1.0.3.8
 
 * **Qf.Extensions.Configuration.Encryption**
 
