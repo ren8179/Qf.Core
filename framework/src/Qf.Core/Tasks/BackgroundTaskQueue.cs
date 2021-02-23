@@ -9,6 +9,7 @@ namespace Qf.Core.Tasks
 {
     public interface IBackgroundTaskQueue
     {
+        public long Count { get; }
         void QueueBackgroundWorkItem(Func<IBackgroundTaskQueue, CancellationToken, Task> workItem);
         void QueueBackgroundWorkItem(Func<IBackgroundTaskQueue, CancellationToken, Task> workItem, double delaySeconds);
         Task<Func<IBackgroundTaskQueue, CancellationToken, Task>> DequeueAsync(CancellationToken cancellationToken);
@@ -25,6 +26,13 @@ namespace Qf.Core.Tasks
             _workItems.Enqueue(workItem);
             _signal.Release();
         }
+        public long Count
+        {
+            get
+            {
+                return _workItems.Count;
+            }
+        }
         public void QueueBackgroundWorkItem(Func<IBackgroundTaskQueue, CancellationToken, Task> workItem, double delaySeconds)
         {
             Task.Delay(TimeSpan.FromSeconds(delaySeconds))
@@ -35,7 +43,7 @@ namespace Qf.Core.Tasks
         }
         public async Task<Func<IBackgroundTaskQueue, CancellationToken, Task>> DequeueAsync(CancellationToken cancellationToken)
         {
-            await _signal.WaitAsync(cancellationToken).ConfigureAwait(false);
+            await _signal.WaitAsync(cancellationToken);
             _workItems.TryDequeue(out var workItem);
             return workItem;
         }
