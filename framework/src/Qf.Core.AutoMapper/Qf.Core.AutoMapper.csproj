@@ -7,20 +7,20 @@
     <Company>Ren Qi</Company>
     <Product>Ren Qi</Product>
     <Title>基于AutoMapper的对象映射类库</Title>
-    <Description>基于.net core 3.1 的微服务开发框架  基于AutoMapper的对象映射类库</Description>
+    <Description>基于.net 5 的微服务开发框架  基于AutoMapper的对象映射类库</Description>
     <PackageProjectUrl>https://github.com/ren8179/Qf.Core/tree/master/src/Qf.Core.AutoMapper</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ren8179/Qf.Core</RepositoryUrl>
     <PackageIcon>icon.png</PackageIcon>
     <PackageLicenseFile>README.md</PackageLicenseFile>
-    <Version>1.0.3.3</Version>
-    <AssemblyVersion>1.0.3.3</AssemblyVersion>
-    <FileVersion>1.0.3.3</FileVersion>
+    <Version>2.0.1.1</Version>
+    <AssemblyVersion>2.0.1.1</AssemblyVersion>
+    <FileVersion>2.0.1.1</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="10.0.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.8" />
-    <PackageReference Include="Qf.Core" Version="1.0.3.4" />
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Qf.Core" Version="2.0.1.1" />
   </ItemGroup>
 
   <ItemGroup>

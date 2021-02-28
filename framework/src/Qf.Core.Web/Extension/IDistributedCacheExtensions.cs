@@ -108,21 +108,12 @@ namespace Qf.Core.Web.Extension
 		public static byte[] Serialize(object value)
 		{
 			if (value == null) return null;
-			using (MemoryStream ms = new MemoryStream())
-			{
-				IFormatter formatter = new BinaryFormatter();
-				formatter.Serialize(ms, value);
-				return ms.GetBuffer();
-			}
+			return System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(value);
 		}
 		public static object Deserialize(byte[] stream)
 		{
 			if (stream == null) return null;
-			using (MemoryStream ms = new MemoryStream(stream))
-			{
-				IFormatter formatter = new BinaryFormatter();
-				return formatter.Deserialize(ms);
-			}
+			return System.Text.Json.JsonSerializer.Deserialize<object>(stream);
 		}
 	}
 }
