@@ -6,9 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
-using Ocelot.Provider.Consul;
 using Ocelot.Provider.Polly;
-using Qf.Core.Web.Extension;
 using System.Collections.Generic;
 
 namespace Qf.APIGateway
@@ -29,7 +27,7 @@ namespace Qf.APIGateway
         public void ConfigureServices(IServiceCollection services)
         {
             //Ìí¼ÓHttpReportsºÍ´æ´¢
-            services.AddHttpReports().UseHttpTransport();
+            services.AddHttpReports().AddHttpTransport();
             services.AddCors(options =>
             {
                 var origs = Configuration.GetSection("AllowOrigins").Get<string[]>();

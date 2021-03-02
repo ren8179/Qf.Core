@@ -79,11 +79,12 @@ namespace Qf.APIGateway
         private static Serilog.ILogger CreateSerilogLogger(IConfiguration configuration)
         {
             return new LoggerConfiguration()
-                .Enrich.WithProperty("Application", AppName)
-                .Enrich.FromLogContext()
-                .WriteTo.Console()
-                .ReadFrom.Configuration(configuration)
-                .CreateLogger();
+                     .Enrich.WithProperty("Application", AppName)
+                     .Enrich.WithMachineName()
+                     .Enrich.WithThreadId()
+                     .ReadFrom.Configuration(configuration)
+                     .WriteTo.Console()
+                     .CreateLogger();
         }
         private static IConfiguration GetConfiguration()
         {
