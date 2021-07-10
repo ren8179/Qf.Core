@@ -20,21 +20,21 @@
     基于AutoMapper的对象映射,具体用法请查看 [Qf.Core.AutoMapper的用法](https://github.com/ren8179/Qf.Core/wiki/Qf.Core.AutoMapper%E7%9A%84%E7%94%A8%E6%B3%95)
     
     你可以运行以下命令在你的项目中使用类库
-    > PM> Install-Package Qf.Core.AutoMapper -Version 2.0.1.1
+    > PM> Install-Package Qf.Core.AutoMapper -Version 2.0.1.2
 
 * **Qf.Core.EFCore**
 
     基于EntityFrameworkCore的仓储基类,默认使用统一工作单元,自动注入默认仓储.
     
     你可以运行以下命令在你的项目中使用类库
-    > PM> Install-Package Qf.Core.EFCore -Version 2.0.1.1
+    > PM> Install-Package Qf.Core.EFCore -Version 2.0.1.2
 
 * **Qf.Core.Web**
 
     asp.net core mvc 项目扩展,添加了微信登录([WeChat](https://github.com/ren8179/Qf.Core/tree/master/framework/src/Qf.Core.Web/Authentication/WeChat)),自定义授权认证([BearerAuthorize](https://github.com/ren8179/Qf.Core/tree/master/framework/src/Qf.Core.Web/Authorization)),全局异常处理([ErrorHandling](https://github.com/ren8179/Qf.Core/blob/master/framework/src/Qf.Core.Web/Extension/ErrorHandlingExtensions.cs)),返回值封装([WebApiResult](https://github.com/ren8179/Qf.Core/tree/master/framework/src/Qf.Core.Web/Filters)))
     
     你可以运行以下命令在你的项目中使用类库
-    > PM> Install-Package Qf.Core.Web -Version 2.0.1.1
+    > PM> Install-Package Qf.Core.Web -Version 2.0.1.2
 
 * **Qf.Extensions.Configuration.Encryption**
 
