@@ -1,7 +1,7 @@
 # Qf.Core
 
 ### 介绍
-基于.net 5 的微服务开发框架,使用简化的DDD+CQRS设计
+基于.net 6 的微服务开发框架,使用简化的DDD+CQRS设计
 
 <p align="center">
   <img  src="https://raw.githubusercontent.com/ren8179/Qf.Core/master/doc/DDD%2BCQRS%E5%9F%BA%E7%A1%80%E6%A1%86%E6%9E%B6%E7%A4%BA%E6%84%8F%E5%9B%BE.png">
@@ -31,10 +31,10 @@
 
 * **Qf.Core.Web**
 
-    asp.net core mvc 项目扩展,添加了微信登录([WeChat](https://github.com/ren8179/Qf.Core/tree/master/framework/src/Qf.Core.Web/Authentication/WeChat)),自定义授权认证([BearerAuthorize](https://github.com/ren8179/Qf.Core/tree/master/framework/src/Qf.Core.Web/Authorization)),全局异常处理([ErrorHandling](https://github.com/ren8179/Qf.Core/blob/master/framework/src/Qf.Core.Web/Extension/ErrorHandlingExtensions.cs)),返回值封装([WebApiResult](https://github.com/ren8179/Qf.Core/tree/master/framework/src/Qf.Core.Web/Filters)))
+    asp.net core mvc 项目扩展,添加了微信登录([WeChat](https://github.com/ren8179/Qf.Core/tree/master/framework/src/Qf.Core.Web/Authentication/WeChat)),支付宝登录([AliPay](https://github.com/ren8179/Qf.Core/tree/master/framework/src/Qf.Core.Web/Authentication/AliPay)),自定义授权认证([BearerAuthorize](https://github.com/ren8179/Qf.Core/tree/master/framework/src/Qf.Core.Web/Authorization)),全局异常处理([ErrorHandling](https://github.com/ren8179/Qf.Core/blob/master/framework/src/Qf.Core.Web/Extension/ErrorHandlingExtensions.cs)),返回值封装([WebApiResult](https://github.com/ren8179/Qf.Core/tree/master/framework/src/Qf.Core.Web/Filters)))
     
     你可以运行以下命令在你的项目中使用类库
-    > PM> Install-Package Qf.Core.Web -Version 2.0.1.2
+    > PM> Install-Package Qf.Core.Web -Version 2.0.1.3
 
 * **Qf.Extensions.Configuration.Encryption**
 

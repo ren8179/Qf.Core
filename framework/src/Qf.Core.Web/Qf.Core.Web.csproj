@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <OutputType>Library</OutputType>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <IsPackable>true</IsPackable>
@@ -9,21 +9,22 @@
     <Company>Ren Qi</Company>
     <Product>Qf.Core.Web</Product>
     <Title>asp.net core mvc 扩展项目</Title>
-    <Description>基于.net 5 的微服务开发框架  asp.net core mvc 扩展项目,添加了微信登录(WeChat),自定义授权认证(BearerAuthorize),全局异常处理(ErrorHandling),返回值封装(WebApiResult))</Description>
+    <Description>基于.net 6 的微服务开发框架  asp.net core mvc 扩展项目,添加了微信登录(WeChat),支付宝登录(AliPay),自定义授权认证(BearerAuthorize),全局异常处理(ErrorHandling),返回值封装(WebApiResult))</Description>
     <PackageProjectUrl>https://github.com/ren8179/Qf.Core/tree/master/src/Qf.Core.Web</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ren8179/Qf.Core</RepositoryUrl>
     <PackageIcon>icon.png</PackageIcon>
     <PackageLicenseFile>README.md</PackageLicenseFile>
-    <Version>2.0.1.2</Version>
-    <AssemblyVersion>2.0.1.2</AssemblyVersion>
-    <FileVersion>2.0.1.2</FileVersion>
+    <Version>2.0.1.4</Version>
+    <AssemblyVersion>2.0.1.4</AssemblyVersion>
+    <FileVersion>2.0.1.4</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CSRedisCore" Version="3.6.6" />
+    <PackageReference Include="AlipaySDKNet.Standard" Version="4.6.442" />
+    <PackageReference Include="CSRedisCore" Version="3.8.670" />
     <PackageReference Include="Qf.Core" Version="2.0.1.2" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.11.1" />
-    <PackageReference Include="System.IO.Pipelines" Version="5.0.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.25.0" />
+    <PackageReference Include="System.IO.Pipelines" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
