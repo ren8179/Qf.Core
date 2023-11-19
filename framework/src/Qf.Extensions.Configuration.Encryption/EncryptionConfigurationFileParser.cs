@@ -34,8 +34,13 @@ namespace Qf.Extensions.Configuration.Encryption
             var passwordBytes = Encoding.ASCII.GetBytes(password);
             passwordBytes = SHA256.Create().ComputeHash(passwordBytes);
             var bytesDecrypted = AES.GetDecryptedByteArray(buffer, passwordBytes);
-            var content = Encoding.GetEncoding("gb2312").GetString(bytesDecrypted);
+            var content = Encoding.UTF8.GetString(bytesDecrypted);
             content = content.Replace("\0", "");
+            int startIndex = content.IndexOf("{");
+            if (startIndex >= 0)
+            {
+                content = content.Substring(startIndex);
+            }
             using (var doc = JsonDocument.Parse(content, jsonReaderOptions))
             {
                 if (doc.RootElement.ValueKind != JsonValueKind.Object)

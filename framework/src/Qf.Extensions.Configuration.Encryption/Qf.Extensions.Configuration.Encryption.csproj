@@ -10,9 +10,9 @@
     <PackageProjectUrl>https://github.com/ren8179/Qf.Core/tree/master/src/Qf.Extensions.Configuration.Encryption</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ren8179/Qf.Core</RepositoryUrl>
     <PackageLicenseFile>README.md</PackageLicenseFile>
-    <Version>1.0.3.3</Version>
-    <AssemblyVersion>1.0.3.3</AssemblyVersion>
-    <FileVersion>1.0.3.3</FileVersion>
+    <Version>2.0.1.1</Version>
+    <AssemblyVersion>2.0.1.1</AssemblyVersion>
+    <FileVersion>2.0.1.1</FileVersion>
     <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
 
