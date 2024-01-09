@@ -23,7 +23,7 @@
     <PackageReference Include="AlipaySDKNet.Standard" Version="4.6.442" />
     <PackageReference Include="CSRedisCore" Version="3.8.670" />
     <PackageReference Include="Qf.Core" Version="2.0.1.2" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.25.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.34.0" />
     <PackageReference Include="System.IO.Pipelines" Version="7.0.0" />
   </ItemGroup>
 
