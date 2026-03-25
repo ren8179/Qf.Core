@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Qf.Core.AutoMapper;
 using System;
@@ -14,6 +15,7 @@ namespace Qf.Core.Web.Extension
             using (var scope = app.ApplicationServices.CreateScope())
             {
                 var options = scope.ServiceProvider.GetRequiredService<IOptions<AutoMapperOptions>>().Value;
+                var loggerFactory = scope.ServiceProvider.GetRequiredService<ILoggerFactory>();
 
                 var mapperConfiguration = new MapperConfiguration(mapperConfigurationExpression =>
                 {
@@ -21,11 +23,9 @@ namespace Qf.Core.Web.Extension
                     {
                         configurator(new AutoMapperConfigurationContext(mapperConfigurationExpression, scope.ServiceProvider));
                     }
-                });
-                foreach (var profileType in options.ValidatingProfiles)
-                {
-                    mapperConfiguration.AssertConfigurationIsValid();
-                }
+                }, loggerFactory);
+
+                mapperConfiguration.AssertConfigurationIsValid();
 
                 scope.ServiceProvider.GetRequiredService<MapperAccessor>().Mapper = mapperConfiguration.CreateMapper();
             }

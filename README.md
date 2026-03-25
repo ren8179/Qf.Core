@@ -20,7 +20,7 @@
     基于AutoMapper的对象映射,具体用法请查看 [Qf.Core.AutoMapper的用法](https://github.com/ren8179/Qf.Core/wiki/Qf.Core.AutoMapper%E7%9A%84%E7%94%A8%E6%B3%95)
     
     你可以运行以下命令在你的项目中使用类库
-    > PM> Install-Package Qf.Core.AutoMapper -Version 2.0.1.3
+    > PM> Install-Package Qf.Core.AutoMapper -Version 2.1.0.0
 
 * **Qf.Core.EFCore**
 
@@ -41,7 +41,7 @@
   asp.net core mvc 项目扩展,提供配置文件加密功能
   
   你可以运行以下命令在你的项目中使用类库
-  > PM> Install-Package Qf.Extensions.Configuration.Encryption -Version 1.0.3.3
+  > PM> Install-Package Qf.Extensions.Configuration.Encryption -Version 2.1.0.0
   
   用法如下:
   

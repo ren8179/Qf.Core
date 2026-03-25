@@ -63,7 +63,7 @@ namespace Qf.Extensions.Configuration.Encryption
             using (MemoryStream ms = new MemoryStream())
             {
                 byte[] encyptedbytes = null;
-                using (RijndaelManaged aes = new RijndaelManaged())
+                using (Aes aes = Aes.Create())
                 {
                     aes.KeySize = 256;
                     aes.BlockSize = 128;
@@ -89,7 +89,7 @@ namespace Qf.Extensions.Configuration.Encryption
             byte[] saltBytes = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 };
             using (MemoryStream ms = new MemoryStream())
             {
-                using (RijndaelManaged aes = new RijndaelManaged())
+                using (Aes aes = Aes.Create())
                 {
                     aes.KeySize = 256;
                     aes.BlockSize = 128;
