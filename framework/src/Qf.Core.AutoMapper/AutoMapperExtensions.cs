@@ -24,7 +24,7 @@ namespace Qf.Core.Web.Extension
                 });
                 foreach (var profileType in options.ValidatingProfiles)
                 {
-                    mapperConfiguration.AssertConfigurationIsValid(((Profile)Activator.CreateInstance(profileType)).ProfileName);
+                    mapperConfiguration.AssertConfigurationIsValid();
                 }
 
                 scope.ServiceProvider.GetRequiredService<MapperAccessor>().Mapper = mapperConfiguration.CreateMapper();

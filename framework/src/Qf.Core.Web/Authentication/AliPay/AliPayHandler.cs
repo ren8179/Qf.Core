@@ -40,9 +40,8 @@ namespace Qf.Core.Web.Authentication.AliPay
              IOptionsMonitor<AliPayOptions> options,
             ILoggerFactory logger,
             UrlEncoder encoder,
-            ISystemClock clock,
             ISecureDataFormat<AuthenticationProperties> secureDataFormat)
-            : base(options, logger, encoder, clock)
+            : base(options, logger, encoder)
         {
             _secureDataFormat = secureDataFormat;
             _logger = logger.CreateLogger(nameof(AliPayHandler));
@@ -188,7 +187,7 @@ namespace Qf.Core.Web.Authentication.AliPay
                     {
                         // https://www.w3.org/TR/xmlschema-2/#dateTime
                         // https://msdn.microsoft.com/en-us/library/az4se3k1(v=vs.110).aspx
-                        var expiresAt = Clock.UtcNow + TimeSpan.FromSeconds(value);
+                        var expiresAt = TimeProvider.GetUtcNow() + TimeSpan.FromSeconds(value);
                         authTokens.Add(new AuthenticationToken
                         {
                             Name = "expires_at",

@@ -8,7 +8,6 @@ using Microsoft.Net.Http.Headers;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
@@ -38,9 +37,8 @@ namespace Qf.Core.Web.Authentication.WeChat
              IOptionsMonitor<WeChatOptions> options,
             ILoggerFactory logger,
             UrlEncoder encoder,
-            ISystemClock clock,
             ISecureDataFormat<AuthenticationProperties> secureDataFormat)
-            : base(options, logger, encoder, clock)
+            : base(options, logger, encoder)
         {
             _secureDataFormat = secureDataFormat;
             _logger = logger.CreateLogger(nameof(WeChatHandler));
@@ -194,7 +192,7 @@ namespace Qf.Core.Web.Authentication.WeChat
                     {
                         // https://www.w3.org/TR/xmlschema-2/#dateTime
                         // https://msdn.microsoft.com/en-us/library/az4se3k1(v=vs.110).aspx
-                        var expiresAt = Clock.UtcNow + TimeSpan.FromSeconds(value);
+                        var expiresAt = TimeProvider.GetUtcNow() + TimeSpan.FromSeconds(value);
                         authTokens.Add(new AuthenticationToken
                         {
                             Name = "expires_at",

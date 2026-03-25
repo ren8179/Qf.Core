@@ -25,10 +25,5 @@ namespace Qf.Core
         /// <param name="message">Exception message</param>
         /// <param name="innerException">Inner exception</param>
         public EPTException(string message, Exception innerException) : base(message, innerException) { }
-
-        /// <summary>
-        /// Constructor for serializing.
-        /// </summary>
-        public EPTException(SerializationInfo serializationInfo, StreamingContext context) : base(serializationInfo, context) { }
     }
 }
